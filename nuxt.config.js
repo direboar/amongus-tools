@@ -67,6 +67,10 @@ export default {
     },
   },
 
+  router: {
+    base: '/amongus-tools/'
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 }
