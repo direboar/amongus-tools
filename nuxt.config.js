@@ -70,10 +70,11 @@ export default {
   router: {
     // see https://nuxtjs.org/docs/2.x/deployment/github-pages
     base: '/amongus-tools/',
-    // see https://qiita.com/idani/items/ff5c7c3cd7b5c91df917
-    publicPath: '/static/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    // see https://qiita.com/idani/items/ff5c7c3cd7b5c91df917
+    publicPath: '/static/',
+  },
 }
