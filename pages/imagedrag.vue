@@ -1,10 +1,10 @@
 <template>
   <v-row>
-    <v-col md="2">
+    <v-col md="1">
       <v-btn :disabled="room === null" @click="addIcon">アイコンを追加</v-btn>
       <v-btn :disabled="room !== null" @click="enterRoom">Roomに入室</v-btn>
     </v-col>
-    <v-col md="10">
+    <v-col md="11">
       <!--
         動的コンポーネントにpropsを渡す方法
         https://stackoverflow.com/questions/43658481/passing-props-dynamically-to-dynamic-component-in-vuejs
@@ -28,20 +28,11 @@
   position: relative;
   top: 0px;
   left: 0px;
-  /* height: 100vmax; */
-  width: 80vw;
-  /* height: 100vh;
-  width: 100wh; */
-  /* width: 1024px;
-  height: 1024px; */
-  /* width: 1024px;
-  height: 1024px; */
+  /* see https://jajaaan.co.jp/web-production/frontend/css-vw-vh-vmin-vmax/ */
+  width: 88vw;
 }
 .battlearea {
-  /* overflow: visible; */
   position: relative;
-  /* height: 100vmin;
-  width: 100vmin; */
 }
 </style>
 

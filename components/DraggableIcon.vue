@@ -10,7 +10,7 @@
     @warp="handleWarp"
     @pinch="handlePinch"
   >
-    <div class="flex-box" @click="dblclick">
+    <div class="flex-box" @click="dblclick" @touchstart="dblclick">
       <div class="left-box">
         <img src="/icon/clue/blue.png" class="clue-image" />
       </div>
