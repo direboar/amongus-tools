@@ -45,11 +45,12 @@ jobs:
       - name: Run tests 🧪
         run: npm run test
 
-    - name: generate
-      run: npm run generate
+      - name: generate
+        run: npm run generate
 
-    - name: deploy
-      uses: direboar/amongus-tools@v3
-      with:
-        github_token: ${{ secrets.GITHUBTOKEN }}
-        publish_dir: ./dist
+      - name: deploy
+        uses: direboar/amongus-tools@v3
+        with:
+          github_token: ${{ secrets.GITHUBTOKEN }}
+          publish_dir: ./dist
+          
