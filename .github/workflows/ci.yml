@@ -48,8 +48,7 @@ jobs:
       - name: generate
         run: npm run generate
 
-      - name: deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUBTOKEN }}
-          publish_dir: ./dist
+      - run: npx netlify-cli deploy --dir=./dist
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
