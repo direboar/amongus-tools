@@ -28,7 +28,10 @@
   position: relative;
   top: 0px;
   left: 0px;
-  height: 100vh;
+  /* height: 100vmax; */
+  width: 80vw;
+  /* height: 100vh;
+  width: 100wh; */
   /* width: 1024px;
   height: 1024px; */
   /* width: 1024px;
@@ -37,7 +40,8 @@
 .battlearea {
   /* overflow: visible; */
   position: relative;
-  height: 100vh;
+  /* height: 100vmin;
+  width: 100vmin; */
 }
 </style>
 
