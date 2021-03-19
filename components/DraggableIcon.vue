@@ -14,7 +14,7 @@
       <div class="left-box">
         <img src="/icon/clue/blue.png" class="clue-image" />
       </div>
-      <div class="right-box" v-if="this.status !== ''">
+      <div v-if="this.status !== ''" class="right-box">
         <img :src="status" class="status-imagemage" />
       </div>
     </div>
@@ -94,13 +94,6 @@ export default {
       status: '',
     }
   },
-
-  beforeMount() {
-    console.log('beforeMount!')
-    const dummy = this.statusImageFile
-    // if (!dummy) {
-    console.log(dummy)
-  },
   // mounted() {
   //   console.log('mounted!')
   //   const dummy = this.statusImageFile
@@ -142,6 +135,13 @@ export default {
       //   return `/icon/status/${this.status}.png`
       // },
     },
+  },
+
+  beforeMount() {
+    console.log('beforeMount!')
+    const dummy = this.statusImageFile
+    // if (!dummy) {
+    console.log(dummy)
   },
   afterMount() {},
   beforeDestroy() {

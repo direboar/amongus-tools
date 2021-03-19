@@ -1,8 +1,8 @@
 <template>
   <v-row>
     <v-col md="2">
-      <v-btn @click="addIcon" :disabled="room === null">アイコンを追加</v-btn>
-      <v-btn @click="enterRoom" :disabled="room !== null">Roomに入室</v-btn>
+      <v-btn :disabled="room === null" @click="addIcon">アイコンを追加</v-btn>
+      <v-btn :disabled="room !== null" @click="enterRoom">Roomに入室</v-btn>
     </v-col>
     <v-col md="10">
       <!--

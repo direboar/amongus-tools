@@ -67,8 +67,9 @@ export default {
     },
   },
 
+  // see https://nuxtjs.org/docs/2.x/deployment/github-pages
   router: {
-    base: '/amongus-tools/'
+    base: '/amongus-tools/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
