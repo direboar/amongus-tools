@@ -4,21 +4,20 @@
     v-bind="moveable"
     @drag="handleDrag"
     @dragEnd="handleDragEnd"
-    @resize="handleResize"
-    @scale="handleScale"
-    @rotate="handleRotate"
-    @warp="handleWarp"
-    @pinch="handlePinch"
   >
-    <div class="flex-box" @click="dblclick" @touchstart="dblclick">
+    <div
+      class="flex-box"
+      @dblclick="dblclick"
+      @touchstart="touchstart"
+      @touchend="touchend"
+    >
       <div class="left-box">
-        <img src="/icon/clue/blue.png" class="clue-image" />
+        <img :src="icon" class="clue-image" />
       </div>
       <div v-if="this.status !== ''" class="right-box">
-        <img :src="status" class="status-imagemage" />
+        <img :src="status" class="status-image" />
       </div>
     </div>
-    <!-- <img src="/mech.png" alt="Vuetify.js" class="image" @click="clicked" /> -->
   </moveable>
 </template>
 
@@ -29,8 +28,10 @@
 }
 .left-box {
   width: 90%;
-  margin: 0%;
+  margin: 0;
   padding: 0;
+  position: absolute;
+  bottom: 0;
 }
 .right-box {
   width: 10%;
@@ -41,7 +42,7 @@
   right: 0;
 }
 .status-image {
-  width: 3px;
+  height: 30px;
   /* float: left; */
   /* height: 50px; */
 }
@@ -61,17 +62,20 @@
 </style>
 
 <script>
+import { v4 as uuidv4 } from 'uuid'
 import Moveable from 'vue-moveable'
 export default {
   components: {
     Moveable,
   },
   props: {
-    id: String,
-    room: Object,
+    // id: String,
+    color: String,
+    pPosition: Object,
   },
   data() {
     return {
+      lap: 0,
       lastSubmitTime: null,
       moveable: {
         draggable: true,
@@ -92,20 +96,19 @@ export default {
         verticalGuideline: null,
       },
       status: '',
+      // status: '/icon/status/gray.png',
+      icon: `/icon/clue/${this.color}.png`,
+      // FIXME v-modelを使うべき
+      // https://stackoverflow.com/questions/40408096/whats-the-correct-way-to-pass-props-as-initial-data-in-vue-js-2
+      position: this.pPosition,
+      id: uuidv4(),
     }
   },
-  // mounted() {
-  //   console.log('mounted!')
-  //   const dummy = this.statusImageFile
-  //   // if (!dummy) {
-  //   console.log(dummy)
-  //   // }
-  // },
 
   computed: {
     moveableStyle: {
       get() {
-        const position = this.$store.getters[`${this.id}/getPosition`]
+        // const position = this.$store.getters[`${this.id}/getPosition`]
         // console.log(position)
         const ret = {
           position: 'absolute',
@@ -121,28 +124,19 @@ export default {
           'z-index': '2',
         }
 
-        if (position) {
-          ret.top = position.top
-          ret.left = position.left
+        if (this.position) {
+          ret.top = this.position.top
+          ret.left = this.position.left
         }
         return ret
       },
-      set(value) {
-        this.$store.commit(`${this.id}/setPosition`, value)
-      },
-      // statusImageFile() {
-      //   // console.log(`/icon/status/${this.status}.png`)
-      //   return `/icon/status/${this.status}.png`
+      // set(value) {
+      //   this.$store.commit(`${this.id}/setPosition`, value)
       // },
     },
   },
 
-  beforeMount() {
-    console.log('beforeMount!')
-    const dummy = this.statusImageFile
-    // if (!dummy) {
-    console.log(dummy)
-  },
+  beforeMount() {},
   afterMount() {},
   beforeDestroy() {
     this.$store.unregisterModule(this.id)
@@ -150,65 +144,48 @@ export default {
 
   methods: {
     handleDrag({ target, left, top, delta, transform }) {
-      // console.log(delta)
-      const now = Date.now()
-      const lap = this.lastSubmitTime ? now - this.lastSubmitTime : 9999
-      // console.log(lap)
-      const position = {
-        top: `${top}px`,
-        left: `${left}px`,
-      }
-      this.$store.commit(`${this.id}/setPosition`, position)
-
-      // WebRTCで現在位置を送信する。
-      // Skywayの制約で、100ms単位でしか処理できないことを考慮し、70sm毎にメッセージを送信する。
-      if (lap > 70 && delta[0] !== 0 && delta[1] !== 0) {
-        const message = {
-          type: 'move',
-          id: this.id,
-          position,
+      if (top > 0 && left > 0) {
+        const position = {
+          top: `${top}px`,
+          left: `${left}px`,
         }
-        this.room.send(message)
-        this.lastSubmitTime = now
-        console.log('send')
+        this.position = position
       }
     },
-    handleDragEnd({ target }) {
-      // console.log(this.$store.state[`${this.id}`].position)
-      // WebRTCで現在位置を送信する。
-      // 最終位置のずれを防ぐため、ドラッグ終了時に、最終位置を送信する。
-      const message = {
-        type: 'move',
-        id: this.id,
-        position: this.$store.state[`${this.id}`].position,
-      }
-      this.room.send(message)
-    },
-    handleResize({ target, width, height, delta }) {
-      delta[0] && (target.style.width = `${width}px`)
-      delta[1] && (target.style.height = `${height}px`)
-    },
-    handleScale({ target, transform, scale }) {
-      target.style.transform = transform
-    },
-    handleRotate({ target, dist, transform }) {
-      target.style.transform = transform
-    },
-    handleWarp({ target, transform }) {
-      target.style.transform = transform
-    },
-    handlePinch({ target }) {},
+    handleDragEnd({ target }) {},
     dispose() {
       this.$el.parentNode.removeChild(this.$el)
       this.$destroy()
     },
     dblclick() {
-      if (this.status === '') {
+      if (this.icon.includes('clue') && this.status === '') {
+        this.icon = `/icon/clue/${this.color}.png`
         this.status = '/icon/status/impostor.png'
-      } else if (this.status.includes('impostor')) {
-        this.status = '/icon/status/dead.png'
-      } else if (this.status.includes('dead')) {
+      } else if (
+        this.icon.includes('clue') &&
+        this.status.includes('impostor')
+      ) {
+        this.icon = `/icon/clue/${this.color}.png`
+        this.status = '/icon/status/gray.png'
+      } else if (this.icon.includes('clue') && this.status.includes('gray')) {
+        this.icon = `/icon/clue/${this.color}.png`
+        this.status = '/icon/status/sirokaku.png'
+      } else if (this.status.includes('sirokaku')) {
+        this.icon = `/icon/dead/${this.color}.png`
         this.status = ''
+      } else if (this.icon.includes('dead')) {
+        this.icon = `/icon/clue/${this.color}.png`
+        this.status = ''
+      }
+      console.log(this.icon)
+    },
+    touchstart() {
+      this.lap = Date.now()
+    },
+    touchend() {
+      const delta = Date.now() - this.lap
+      if (delta < 200) {
+        this.dblclick()
       }
     },
   },

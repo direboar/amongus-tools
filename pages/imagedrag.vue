@@ -1,28 +1,25 @@
 <template>
-  <v-row>
-    <v-col md="1">
-      <v-btn :disabled="room === null" @click="addIcon">アイコンを追加</v-btn>
-      <v-btn :disabled="room !== null" @click="enterRoom">Roomに入室</v-btn>
-    </v-col>
-    <v-col md="11">
-      <!--
-        動的コンポーネントにpropsを渡す方法
-        https://stackoverflow.com/questions/43658481/passing-props-dynamically-to-dynamic-component-in-vuejs
-      -->
-      <div class="battlearea">
-        <component
-          :is="component.componentClass"
-          v-for="(component, i) in components"
-          :key="i"
-          v-bind="component.props"
-        ></component>
-        <img class="screen" src="/map/skeld.png" />
-      </div>
-    </v-col>
-  </v-row>
+  <div>
+    <div class="waitingroom" />
+    <div class="battlearea">
+      <component
+        :is="component.componentClass"
+        v-for="(component, i) in components"
+        :key="i"
+        v-bind="component.props"
+      ></component>
+      <img class="screen" src="/map/skeld.png" />
+    </div>
+  </div>
 </template>
 
 <style>
+.waitingroom {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  height: 70px;
+}
 .screen {
   /* overflow: visible; */
   position: relative;
@@ -38,8 +35,7 @@
 
 <script>
 import Vue from 'vue'
-import { v4 as uuidv4 } from 'uuid'
-import Peer from 'skyway-js'
+// import { v4 as uuidv4 } from 'uuid'
 
 import DraggableIcon from '~/components/DraggableIcon.vue'
 
@@ -49,11 +45,6 @@ export default {
   },
   data() {
     return {
-      peer: new Peer({
-        key: '7e7d1d39-a597-47c0-9542-1ae7bcda4fec',
-        debug: 3,
-      }),
-      room: null,
       components: [],
       moveable: {
         draggable: true,
@@ -76,28 +67,37 @@ export default {
     }
   },
   mounted() {
+    this.createIcon({ top: '20px', left: '0px' }, 'black')
+    this.createIcon({ top: '20px', left: '50px' }, 'blue')
+    this.createIcon({ top: '20px', left: '100px' }, 'brown')
+    this.createIcon({ top: '20px', left: '150px' }, 'green')
+    this.createIcon({ top: '20px', left: '200px' }, 'lime')
+    this.createIcon({ top: '20px', left: '250px' }, 'orange')
+    this.createIcon({ top: '20px', left: '300px' }, 'pink')
+    this.createIcon({ top: '20px', left: '350px' }, 'purple')
+    this.createIcon({ top: '20px', left: '400px' }, 'red')
+    this.createIcon({ top: '20px', left: '450px' }, 'skyblue')
+    this.createIcon({ top: '20px', left: '500px' }, 'white')
+    this.createIcon({ top: '20px', left: '550px' }, 'yellow')
     // actionの実行をサブスクライブする方法
     // https://kawadev.net/vuex-watch/#toc_id_2_3
-    this.$store.subscribeAction((action, state) => {
-      if (action.type === 'registerIcon') {
-        const id = action.payload
-        const component = {
-          componentClass: Vue.extend(DraggableIcon),
-          props: {
-            id,
-            room: this.room,
-          },
-        }
-        this.components.push(component)
-      }
-    })
+    // this.$store.subscribeAction((action, state) => {
+    //   if (action.type === 'registerIcon') {
+    //     // const id = action.payload
+    //     const component = {
+    //       componentClass: Vue.extend(DraggableIcon),
+    //       props: {
+    //         // id,
+    //         color: 'blue',
+    //         // position,
+    //         // room: this.room,
+    //       },
+    //     }
+    //     this.components.push(component)
+    //   }
+    // })
   },
-  beforeDestroy() {
-    if (this.room) {
-      this.room.close()
-    }
-    this.peer.destroy()
-  },
+  beforeDestroy() {},
   methods: {
     handleDrag({ target, transform }) {
       target.style.transform = transform
@@ -117,35 +117,32 @@ export default {
     // },
     // handlePinch({ target }) {},
     addIcon() {
-      const id = uuidv4()
-      this.$store.dispatch('registerIcon', id)
-
-      // send message to room.
-      const message = {
-        type: 'registerIcon',
-        id,
+      // const id = uuidv4()
+      const position = {
+        top: '100px',
+        left: '100px',
       }
-      this.room.send(message)
-
-      // console.log('xxx')
-      // const ComponentClass = Vue.extend(DraggableIcon)
-      // this.components.push(ComponentClass)
+      // this.$store.dispatch('registerIcon', { id, position })
+      const component = {
+        componentClass: Vue.extend(DraggableIcon),
+        props: {
+          // id,
+          color: 'blue',
+          position,
+          // room: this.room,
+        },
+      }
+      this.components.push(component)
     },
-    enterRoom() {
-      this.room = this.peer.joinRoom('room1')
-      // commit('setRoom', room)
-      // 受信処理
-      this.room.on('data', ({ src, data }) => {
-        const type = data.type
-        const id = data.id
-        const position = data.position
-        if (type === 'registerIcon') {
-          this.$store.dispatch('registerIcon', id)
-        } else if (type === 'move') {
-          // this.$store.dispatch('registerIcon', id)
-          this.$store.commit(`${id}/setPosition`, position)
-        }
-      })
+    createIcon(position, color) {
+      const component = {
+        componentClass: Vue.extend(DraggableIcon),
+        props: {
+          color,
+          pPosition: position,
+        },
+      }
+      this.components.push(component)
     },
   },
 }
