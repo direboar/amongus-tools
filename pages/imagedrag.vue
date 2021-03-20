@@ -91,9 +91,6 @@ export default {
         this.components.push(component)
       }
     })
-
-    // //
-    // document.documentElement.style['overscroll-behavior'] = 'none'
   },
   beforeDestroy() {
     if (this.room) {

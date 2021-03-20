@@ -6,43 +6,22 @@
       </v-container>
     </v-main>
   </v-app>
+  <!-- <html>
+    <body>
+      1111 1111 111222
+    </body>
+  </html> -->
 </template>
 
 <script>
+import inobounce from 'inobounce'
+
 export default {
   data() {
-    return {
-      // clipped: false,
-      // drawer: false,
-      // fixed: false,
-      // items: [
-      //   {
-      //     icon: 'mdi-apps',
-      //     title: 'Welcome',
-      //     to: '/',
-      //   },
-      //   {
-      //     icon: 'mdi-chart-bubble',
-      //     title: 'Inspire',
-      //     to: '/inspire',
-      //   },
-      //   {
-      //     icon: 'mdi-chart-bubble',
-      //     title: 'Imagedrag',
-      //     to: '/imagedrag',
-      //   },
-      // ],
-      // miniVariant: false,
-      // right: true,
-      // rightDrawer: false,
-      // title: 'Vuetify.js',
-    }
+    return {}
+  },
+  mounted() {
+    inobounce.enable()
   },
 }
 </script>
-
-<style>
-html {
-  overscroll-behavior: none;
-}
-</style>
