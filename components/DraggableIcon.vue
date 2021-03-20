@@ -69,7 +69,6 @@ export default {
     Moveable,
   },
   props: {
-    // id: String,
     color: String,
     pPosition: Object,
   },
@@ -108,8 +107,6 @@ export default {
   computed: {
     moveableStyle: {
       get() {
-        // const position = this.$store.getters[`${this.id}/getPosition`]
-        // console.log(position)
         const ret = {
           position: 'absolute',
           width: '50px',
@@ -130,9 +127,6 @@ export default {
         }
         return ret
       },
-      // set(value) {
-      //   this.$store.commit(`${this.id}/setPosition`, value)
-      // },
     },
   },
 

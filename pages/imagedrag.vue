@@ -79,57 +79,22 @@ export default {
     this.createIcon({ top: '20px', left: '450px' }, 'skyblue')
     this.createIcon({ top: '20px', left: '500px' }, 'white')
     this.createIcon({ top: '20px', left: '550px' }, 'yellow')
-    // actionの実行をサブスクライブする方法
-    // https://kawadev.net/vuex-watch/#toc_id_2_3
-    // this.$store.subscribeAction((action, state) => {
-    //   if (action.type === 'registerIcon') {
-    //     // const id = action.payload
-    //     const component = {
-    //       componentClass: Vue.extend(DraggableIcon),
-    //       props: {
-    //         // id,
-    //         color: 'blue',
-    //         // position,
-    //         // room: this.room,
-    //       },
-    //     }
-    //     this.components.push(component)
-    //   }
-    // })
   },
   beforeDestroy() {},
   methods: {
     handleDrag({ target, transform }) {
       target.style.transform = transform
     },
-    // handleResize({ target, width, height, delta }) {
-    //   delta[0] && (target.style.width = `${width}px`)
-    //   delta[1] && (target.style.height = `${height}px`)
-    // },
-    // handleScale({ target, transform, scale }) {
-    //   target.style.transform = transform
-    // },
-    // handleRotate({ target, dist, transform }) {
-    //   target.style.transform = transform
-    // },
-    // handleWarp({ target, transform }) {
-    //   target.style.transform = transform
-    // },
-    // handlePinch({ target }) {},
     addIcon() {
-      // const id = uuidv4()
       const position = {
         top: '100px',
         left: '100px',
       }
-      // this.$store.dispatch('registerIcon', { id, position })
       const component = {
         componentClass: Vue.extend(DraggableIcon),
         props: {
-          // id,
           color: 'blue',
           position,
-          // room: this.room,
         },
       }
       this.components.push(component)
