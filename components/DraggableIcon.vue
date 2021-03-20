@@ -30,12 +30,12 @@
 .left-box {
   width: 90%;
   margin: 0%;
-  padding: 0 0 2.5%;
+  padding: 0;
 }
 .right-box {
   width: 10%;
   margin: 0;
-  padding: 0 0 2.5%;
+  padding: 0;
   position: absolute;
   bottom: 0;
   right: 0;
