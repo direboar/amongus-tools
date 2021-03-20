@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="waitingroom" />
+    <div class="waitingroom">
+      <v-btn @click="openConfigDialog">設定</v-btn>
+    </div>
     <div class="battlearea">
       <component
         :is="component.componentClass"
@@ -10,6 +12,7 @@
       ></component>
       <img class="screen" src="/map/skeld.png" />
     </div>
+    <CharacterDialog :showDialog.sync="showDialog" message="message" />
   </div>
 </template>
 
@@ -38,13 +41,16 @@ import Vue from 'vue'
 // import { v4 as uuidv4 } from 'uuid'
 
 import DraggableIcon from '~/components/DraggableIcon.vue'
+import CharacterDialog from '~/components/CharacterDialog.vue'
 
 export default {
   components: {
     DraggableIcon,
+    CharacterDialog,
   },
   data() {
     return {
+      showDialog: false,
       components: [],
       moveable: {
         draggable: true,
@@ -82,6 +88,9 @@ export default {
   },
   beforeDestroy() {},
   methods: {
+    openConfigDialog() {
+      this.showDialog = true
+    },
     handleDrag({ target, transform }) {
       target.style.transform = transform
     },
