@@ -92,8 +92,8 @@ export default {
       }
     })
 
-    //
-    document.documentElement.style['overscroll-behavior'] = 'none'
+    // //
+    // document.documentElement.style['overscroll-behavior'] = 'none'
   },
   beforeDestroy() {
     if (this.room) {

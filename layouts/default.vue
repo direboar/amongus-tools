@@ -40,3 +40,9 @@ export default {
   },
 }
 </script>
+
+<style>
+html {
+  overscroll-behavior: none;
+}
+</style>
