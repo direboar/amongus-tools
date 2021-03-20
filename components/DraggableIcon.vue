@@ -160,17 +160,20 @@ export default {
     dblclick() {
       if (this.icon.includes('clue') && this.status === '') {
         this.icon = `/icon/clue/${this.color}.png`
+        this.status = '/icon/status/gray.png'
+      } else if (this.icon.includes('clue') && this.status.includes('gray')) {
+        this.icon = `/icon/clue/${this.color}.png`
+        this.status = '/icon/status/sirokaku.png'
+      } else if (
+        this.icon.includes('clue') &&
+        this.status.includes('sirokaku')
+      ) {
+        this.icon = `/icon/clue/${this.color}.png`
         this.status = '/icon/status/impostor.png'
       } else if (
         this.icon.includes('clue') &&
         this.status.includes('impostor')
       ) {
-        this.icon = `/icon/clue/${this.color}.png`
-        this.status = '/icon/status/gray.png'
-      } else if (this.icon.includes('clue') && this.status.includes('gray')) {
-        this.icon = `/icon/clue/${this.color}.png`
-        this.status = '/icon/status/sirokaku.png'
-      } else if (this.status.includes('sirokaku')) {
         this.icon = `/icon/dead/${this.color}.png`
         this.status = ''
       } else if (this.icon.includes('dead')) {
