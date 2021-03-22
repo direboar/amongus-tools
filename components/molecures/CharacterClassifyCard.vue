@@ -1,5 +1,5 @@
 <template>
-  <v-card :color="color" raised ripple rounded>
+  <v-card :color="color" hover ripple rounded>
     <v-container fluid fill-height>
       <v-row>
         <v-col cols="2">{{ title }}</v-col>
@@ -13,14 +13,12 @@
             <clue-chip
               v-for="(character, i) in characters"
               :key="i"
-              :name="character.name"
-              :src="character.iconUrl"
+              :character="character"
             />
           </draggable>
         </v-col>
       </v-row>
     </v-container>
-    <!-- <v-card-title>{{ title }}</v-card-title> -->
   </v-card>
 </template>
 

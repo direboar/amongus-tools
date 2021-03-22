@@ -6,7 +6,7 @@
       :persistent="true"
     >
       <v-card class="mx-auto" :max-width="dialogSize" tile>
-        <v-form v-model="valid">
+        <v-form v-if="editedCharacter">
           <v-container fluid fill-height>
             <v-row>
               <v-col cols="4">
@@ -14,15 +14,15 @@
               </v-col>
               <v-col cols="8">
                 <v-checkbox
-                  v-model="join"
+                  v-model="editedCharacter.join"
                   label="参加する"
                   color="red"
-                  value="red"
                   hide-details
                 ></v-checkbox>
               </v-col>
               <v-col cols="12">
                 <v-text-field
+                  v-model="editedCharacter.name"
                   class="text-field"
                   label="名前"
                   required
@@ -63,15 +63,14 @@ export default {
       type: Boolean,
       default: true,
     },
-    message: {
-      type: String,
-      default: '',
+    character: {
+      type: Object,
     },
   },
   data() {
     return {
-      join: false,
       items: [],
+      editedCharacter: null,
       // items: [
       //   {
       //     color: 'red',
@@ -89,12 +88,18 @@ export default {
       get() {
         return this.showDialog
       },
-      set(name) {
-        this.$emit('update:showDialog', false)
+      set(val) {
+        // this.$emit('update:name', name)
+        this.$emit('update:showDialog', val)
       },
     },
   },
   watch: {
+    character(val) {
+      if (val) {
+        this.editedCharacter = this.character
+      }
+    },
     // showDialog(val) {
     //   if (val) {
     //     const obj = this.$store.getters.getNames
@@ -113,6 +118,7 @@ export default {
       this.isShowDialog = false
       // 下層キーボードによる押上げを戻す。
       window.scroll(0, 0)
+      this.$emit('updateCharacter', this.editedCharacter)
     },
   },
 }

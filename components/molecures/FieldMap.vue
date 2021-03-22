@@ -8,7 +8,7 @@
         :key="i"
         v-bind="component.props"
       ></component>
-      <img class="screen" src="/map/skeld.png" />
+      <img class="screen" :src="src" />
     </div>
   </div>
 </template>
@@ -37,11 +37,17 @@
 import Vue from 'vue'
 // import { v4 as uuidv4 } from 'uuid'
 
-import DraggableIcon from './CharacterDialog'
+import DraggableIcon from './DraggableIcon'
 
 export default {
   components: {
     DraggableIcon,
+  },
+  props: {
+    src: {
+      type: String,
+      default: '/map/skeld.png',
+    },
   },
   data() {
     return {

@@ -1,7 +1,5 @@
 <template>
-  <!-- <div> -->
   <img class="clue-image" :src="src" />
-  <!-- </div> -->
 </template>
 
 <style scoped>

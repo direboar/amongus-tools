@@ -8,16 +8,18 @@
           <th class="text-left">名前</th>
           <th class="text-left">生死</th>
           <th class="text-left">ボタン</th>
-          <th class="text-left">その他</th>
+          <!-- <th class="text-left">その他</th> -->
         </tr>
       </thead>
       <tbody>
         <tr v-for="(character, i) in characters" :key="i">
           <td>
-            <div @click="edit()"><clue-icon :src="character.iconUrl" /></div>
+            <div @click="edit(character)">
+              <clue-icon :src="character.iconUrl" />
+            </div>
           </td>
           <td>
-            <div class="text-overline" @click="edit()">
+            <div @click="edit(character)">
               {{ character.name }}
             </div>
           </td>
@@ -29,14 +31,18 @@
               :use-emergency-button.sync="character.useEmergencyButton"
             />
           </td>
-          <td>
+          <!-- <td>
             <status-button :status.sync="character.status" />
-          </td>
+          </td> -->
         </tr>
       </tbody>
       <!-- </table> -->
     </v-simple-table>
-    <character-dialog :show-dialog.sync="showDialog" />
+    <character-dialog
+      :show-dialog.sync="showDialog"
+      :character="editedCharacter"
+      @updateCharacter="updateCharacter"
+    />
   </div>
 </template>
 
@@ -73,7 +79,7 @@ import ClueIcon from '~/components/molecures/ClueIcon'
 import CharacterAliveButton from '~/components/molecures/CharacterAliveButton.vue'
 import EmergencyButton from '~/components/molecures/EmergencyButton.vue'
 // import StatusSelectBox from '~/components/molecures/StatusSelectBox.vue'
-import StatusButton from '~/components/molecures/StatusButton.vue'
+// import StatusButton from '~/components/molecures/StatusButton.vue'
 
 export default {
   components: {
@@ -82,7 +88,7 @@ export default {
     CharacterAliveButton,
     EmergencyButton,
     // StatusSelectBox,
-    StatusButton,
+    // StatusButton,
   },
   props: {
     characters: Array,
@@ -90,11 +96,16 @@ export default {
   data() {
     return {
       showDialog: false,
+      editedCharacter: null,
     }
   },
   methods: {
-    edit(name) {
+    edit(character) {
+      this.editedCharacter = character
       this.showDialog = true
+    },
+    updateCharacter(character) {
+      this.$emit('updateCharacter', character)
     },
   },
 }

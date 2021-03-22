@@ -10,12 +10,12 @@ export const NuxtWebsite = () => ({
     CharacterClassifyCard,
   },
   template:
-    '<v-app><CharacterClassifyCard :title="title" :color="color" :clues="clues"/></v-app>',
+    '<v-app><CharacterClassifyCard :title="title" :color="color" :characters="characters"/></v-app>',
   data() {
     return {
       title: 'タイトル',
       color: 'blue',
-      clues: [
+      characters: [
         new Character('blue', 'minokuba'),
         new Character('red', 'yuusui'),
         new Character('black', 'toma'),

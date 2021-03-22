@@ -3,7 +3,7 @@
     <character-classify-card
       title="グレー"
       :characters="gray"
-      color="blue-grey darken-1"
+      color="blue-grey lighten-1"
     />
     <character-classify-card
       title="怪しい"
@@ -11,7 +11,7 @@
       color="blue-grey darken-1"
     />
     <character-classify-card
-      title="白っぽい"
+      title="白め"
       :characters="maybeClue"
       color="light-blue lighten-3"
     />

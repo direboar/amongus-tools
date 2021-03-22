@@ -10,10 +10,12 @@ export default class Character {
     this.day1 = ''
     this.day2 = ''
     this.day3 = ''
+    this.join = true
   }
 
   get iconUrl() {
-    console.log(`/icon/clue/${this.color}.png`)
-    return `/icon/clue/${this.color}.png`
+    return this.alive
+      ? `/icon/clue/${this.color}.png`
+      : `/icon/dead/${this.color}.png`
   }
 }
