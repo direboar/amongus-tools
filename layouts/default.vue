@@ -1,9 +1,11 @@
 <template>
   <v-app dark>
     <v-main>
-      <v-container>
+      <!-- <v-container> -->
+      <v-content>
         <nuxt />
-      </v-container>
+      </v-content>
+      <!-- </v-container> -->
     </v-main>
   </v-app>
   <!-- <html>

@@ -1,6 +1,13 @@
 body {
+    /**inobounseの設定*/
     height: 100%;
     border: 0px ;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+
+    /**Zoom抑止*/
+    touch-action: manipulation;    
 }
+
+
+
