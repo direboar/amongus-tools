@@ -26,7 +26,7 @@
   top: 0px;
   left: 0px;
   /* see https://jajaaan.co.jp/web-production/frontend/css-vw-vh-vmin-vmax/ */
-  width: 85vw;
+  /* width: 85vw; */
 }
 .battlearea {
   position: relative;
