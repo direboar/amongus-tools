@@ -46,7 +46,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
 
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -94,17 +94,17 @@ export default {
     manifest: {
       name: 'AmongUs Tools',
       lang: 'ja',
-      useWebmanifestExtension: false
-    }
+      useWebmanifestExtension: false,
+    },
   },
 
   manifest: {
     name: 'AmongUs Tools',
     lang: 'ja',
-    useWebmanifestExtension: false
+    useWebmanifestExtension: false,
   },
 
   workbox: {
-    dev: true
-  }
+    dev: true,
+  },
 }
