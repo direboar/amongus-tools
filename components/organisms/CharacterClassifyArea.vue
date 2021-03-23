@@ -4,26 +4,31 @@
       title="グレー"
       :characters="gray"
       color="blue-grey lighten-1"
+      @updateCharacters="updateCharacters(`gray`, $event)"
     />
     <character-classify-card
       title="怪しい"
       :characters="maybeImpostor"
       color="blue-grey darken-1"
+      @updateCharacters="updateCharacters(`maybeImpostor`, $event)"
     />
     <character-classify-card
       title="白め"
       :characters="maybeClue"
       color="light-blue lighten-3"
+      @updateCharacters="updateCharacters(`maybeClue`, $event)"
     />
     <character-classify-card
       title="KILL"
       :characters="killed"
       color="red darken-4"
+      @updateCharacters="updateCharacters(`killed`, $event)"
     />
     <character-classify-card
       title="吊られ"
       :characters="hunged"
       color="light-blue brown darken-2"
+      @updateCharacters="updateCharacters(`hunged`, $event)"
     />
   </v-card>
 </template>
@@ -45,7 +50,7 @@ export default {
     hunged: Array,
   },
   mounted() {
-    console.log(this.gray)
+    // console.log(this.gray)
   },
   data() {
     return {
@@ -63,6 +68,9 @@ export default {
     }
   },
   methods: {
+    updateCharacters(type, characters) {
+      this.$emit('updateCharacters', type, characters)
+    },
     // edit(name) {
     //   this.showDialog = true
     // },

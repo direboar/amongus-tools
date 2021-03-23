@@ -18,10 +18,19 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      // className: 'clue-image',
+    }
   },
-  computed: {},
-  watch: {},
+  // watch: {
+  //   src(val) {
+  //   },
+  // },
+  computed: {
+    // isDead() {
+    //   return this.src && this.src.includes('dead')
+    // },
+  },
   methods: {},
 }
 </script>

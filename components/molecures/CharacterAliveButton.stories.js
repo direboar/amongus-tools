@@ -12,7 +12,7 @@ export const NuxtWebsite = () => ({
   template: '<v-app><CharacterAliveButton :alive.sync="alive"/></v-app>',
   data() {
     return {
-      alive: true,
+      alive: '生',
     }
   },
   methods: {},

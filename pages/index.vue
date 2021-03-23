@@ -32,6 +32,7 @@
                     :maybeImpostor="maybeImpostor"
                     :killed="killed"
                     :hunged="hunged"
+                    @updateCharacters="updateCharacterStatus"
                   />
                 </v-col>
               </v-row>
@@ -102,6 +103,22 @@ export default {
           Object.assign(found, updated)
         }
       }
+    },
+    updateCharacterStatus(status, pCharacters) {
+      this[status] = pCharacters
+
+      // 生死状態の更新
+      pCharacters.forEach((character) => {
+        if (status === 'killed') {
+          character.alive = 'KILL'
+          character.useEmergencyButton = true
+        } else if (status === 'hunged') {
+          character.alive = '吊られ'
+          character.useEmergencyButton = true
+        } else {
+          character.alive = '生'
+        }
+      })
     },
   },
 }

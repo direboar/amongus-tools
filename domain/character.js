@@ -4,7 +4,7 @@ export default class Character {
     this.color = color
     // 名前
     this.name = name
-    this.alive = true
+    this.alive = '生'
     this.useEmergencyButton = false
     this.status = 'グレー'
     this.day1 = ''
@@ -14,7 +14,7 @@ export default class Character {
   }
 
   get iconUrl() {
-    return this.alive
+    return this.alive === '生'
       ? `/icon/clue/${this.color}.png`
       : `/icon/dead/${this.color}.png`
   }

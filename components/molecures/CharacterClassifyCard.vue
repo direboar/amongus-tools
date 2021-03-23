@@ -5,10 +5,10 @@
         <v-col cols="2">{{ title }}</v-col>
         <v-col cols="10">
           <draggable
-            v-model="selection"
+            v-model="characterList"
             group="clues"
             @start="drag = true"
-            @end="drag = false"
+            @end="onEnd(value)"
           >
             <clue-chip
               v-for="(character, i) in characters"
@@ -36,15 +36,25 @@ export default {
     color: String,
     characters: Array,
   },
+  computed: {
+    characterList: {
+      get() {
+        return this.characters
+      },
+      set(val) {
+        this.$emit('updateCharacters', val)
+      },
+    },
+  },
   data() {
     return {
       selection: null,
     }
   },
   methods: {
-    // edit(name) {
-    //   this.showDialog = true
-    // },
+    onEnd(value) {
+      console.log(value)
+    },
   },
 }
 </script>
