@@ -37,12 +37,16 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    // https://pwa.nuxtjs.org/setup
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+
+    // '@nuxtjs/pwa'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -85,4 +89,22 @@ export default {
     addons: ['@storybook/addon-controls'],
     port: 4000,
   },
+
+  pwa: {
+    manifest: {
+      name: 'AmongUs Tools',
+      lang: 'ja',
+      useWebmanifestExtension: false
+    }
+  },
+
+  // manifest: {
+  //   name: 'AmongUs Tools',
+  //   lang: 'ja',
+  //   useWebmanifestExtension: false
+  // },
+
+  workbox: {
+    dev: true
+  }
 }
