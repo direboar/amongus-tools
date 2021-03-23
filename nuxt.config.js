@@ -38,7 +38,7 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
     // https://pwa.nuxtjs.org/setup
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -46,7 +46,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
 
-    // '@nuxtjs/pwa'
+    '@nuxtjs/pwa'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -98,11 +98,11 @@ export default {
     }
   },
 
-  // manifest: {
-  //   name: 'AmongUs Tools',
-  //   lang: 'ja',
-  //   useWebmanifestExtension: false
-  // },
+  manifest: {
+    name: 'AmongUs Tools',
+    lang: 'ja',
+    useWebmanifestExtension: false
+  },
 
   workbox: {
     dev: true
