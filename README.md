@@ -20,11 +20,13 @@ $ npm run generate
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
 TODO
-・死亡状態が、右下の状態管理と同期する
-・死亡時にボタン使用済みにする
+済　死亡状態が、右下の状態管理と同期する
+済　死亡時にボタン使用済みにする
 ・Mapとの連携機能
 　―使用するアイコンの種類連携
 　-ステータスの連携（生死、グレー・怪しい・白目）
+・死亡ボタンを消す
+・ライン管理ボタンを作成する
 ・設定機能
 　-削除したキャラを戻す
 　-キャラ名一括設定
