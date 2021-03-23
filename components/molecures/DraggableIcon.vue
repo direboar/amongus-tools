@@ -5,12 +5,7 @@
     @drag="handleDrag"
     @dragEnd="handleDragEnd"
   >
-    <div
-      class="flex-box"
-      @dblclick="dblclick"
-      @touchstart="touchstart"
-      @touchend="touchend"
-    >
+    <div class="flex-box">
       <div class="left-box">
         <img :src="icon" class="clue-image" />
       </div>
@@ -71,6 +66,7 @@ export default {
   props: {
     color: String,
     pPosition: Object,
+    character: Object,
   },
   data() {
     return {
@@ -94,9 +90,9 @@ export default {
         horizontalGuideline: null,
         verticalGuideline: null,
       },
-      status: '',
+      // status: '',
       // status: '/icon/status/gray.png',
-      icon: `/icon/clue/${this.color}.png`,
+      // icon: `/icon/clue/${this.color}.png`,
       // FIXME v-modelを使うべき
       // https://stackoverflow.com/questions/40408096/whats-the-correct-way-to-pass-props-as-initial-data-in-vue-js-2
       position: this.pPosition,
@@ -105,6 +101,23 @@ export default {
   },
 
   computed: {
+    icon() {
+      return this.character.alive === '生'
+        ? `/icon/clue/${this.color}.png`
+        : `/icon/dead/${this.color}.png`
+    },
+    status() {
+      const status = this.character.status
+      if (status === 'グレー') {
+        return ''
+      } else if (status === '怪しい') {
+        return '/icon/status/gray.png'
+      } else if (status === '白目') {
+        return '/icon/status/sirokaku.png'
+      } else {
+        return ''
+      }
+    },
     moveableStyle: {
       get() {
         const ret = {
@@ -130,6 +143,8 @@ export default {
     },
   },
 
+  watch: {},
+
   beforeMount() {},
   afterMount() {},
   beforeDestroy() {
@@ -151,39 +166,39 @@ export default {
       this.$el.parentNode.removeChild(this.$el)
       this.$destroy()
     },
-    dblclick() {
-      if (this.icon.includes('clue') && this.status === '') {
-        this.icon = `/icon/dead/${this.color}.png`
-        this.status = ''
-      } else if (this.icon.includes('dead')) {
-        this.icon = `/icon/clue/${this.color}.png`
-        this.status = '/icon/status/gray.png'
-      } else if (this.icon.includes('clue') && this.status.includes('gray')) {
-        this.icon = `/icon/clue/${this.color}.png`
-        this.status = '/icon/status/sirokaku.png'
-      } else if (
-        this.icon.includes('clue') &&
-        this.status.includes('sirokaku')
-      ) {
-        this.icon = `/icon/clue/${this.color}.png`
-        this.status = '/icon/status/impostor.png'
-      } else if (
-        this.icon.includes('clue') &&
-        this.status.includes('impostor')
-      ) {
-        this.icon = `/icon/clue/${this.color}.png`
-        this.status = ''
-      }
-    },
-    touchstart() {
-      this.lap = Date.now()
-    },
-    touchend() {
-      const delta = Date.now() - this.lap
-      if (delta < 100) {
-        this.dblclick()
-      }
-    },
+    // dblclick() {
+    //   if (this.icon.includes('clue') && this.status === '') {
+    //     this.icon = `/icon/dead/${this.color}.png`
+    //     this.status = ''
+    //   } else if (this.icon.includes('dead')) {
+    //     this.icon = `/icon/clue/${this.color}.png`
+    //     this.status = '/icon/status/gray.png'
+    //   } else if (this.icon.includes('clue') && this.status.includes('gray')) {
+    //     this.icon = `/icon/clue/${this.color}.png`
+    //     this.status = '/icon/status/sirokaku.png'
+    //   } else if (
+    //     this.icon.includes('clue') &&
+    //     this.status.includes('sirokaku')
+    //   ) {
+    //     this.icon = `/icon/clue/${this.color}.png`
+    //     this.status = '/icon/status/impostor.png'
+    //   } else if (
+    //     this.icon.includes('clue') &&
+    //     this.status.includes('impostor')
+    //   ) {
+    //     this.icon = `/icon/clue/${this.color}.png`
+    //     this.status = ''
+    //   }
+    // },
+    // touchstart() {
+    //   this.lap = Date.now()
+    // },
+    // touchend() {
+    //   const delta = Date.now() - this.lap
+    //   if (delta < 100) {
+    //     this.dblclick()
+    //   }
+    // },
   },
 }
 </script>

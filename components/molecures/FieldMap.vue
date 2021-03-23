@@ -48,6 +48,7 @@ export default {
       type: String,
       default: '/map/skeld.png',
     },
+    characters: Array,
   },
   data() {
     return {
@@ -106,11 +107,15 @@ export default {
       this.components.push(component)
     },
     createIcon(position, color) {
+      const character = this.characters.find((e) => {
+        return e.color === color
+      })
       const component = {
         componentClass: Vue.extend(DraggableIcon),
         props: {
           color,
           pPosition: position,
+          character,
         },
       }
       this.components.push(component)

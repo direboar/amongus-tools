@@ -14,8 +14,7 @@ export default {
   props: {
     // ダイアログ表示フラグ。
     alive: {
-      type: Boolean,
-      default: false,
+      type: String,
     },
   },
   computed: {

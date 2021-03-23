@@ -11,7 +11,7 @@
             >閉じる</v-btn
           ></v-app-bar
         >
-        <field-map :src="src" />
+        <field-map :src="src" :characters="characters" />
       </v-card>
     </v-dialog>
   </div>
@@ -28,6 +28,7 @@ export default {
   },
   props: {
     src: String,
+    characters: Array,
   },
   data() {
     return {

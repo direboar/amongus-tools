@@ -23,7 +23,7 @@
             <v-col cols="6">
               <v-row>
                 <v-col cols="12">
-                  <zoomable-map src="/map/skeld.png" />
+                  <zoomable-map src="/map/skeld.png" :characters="characters" />
                 </v-col>
                 <v-col cols="12">
                   <character-classify-area
@@ -78,6 +78,7 @@ export default {
         new Character('lime', 'mojinjp'),
         new Character('orange', 'metaB'),
         new Character('pink', 'PIIINK'),
+        new Character('purple', 'shiromedaka'),
         new Character('red', 'yuusui'),
         new Character('skyblue', 'SKYBLLUE'),
         new Character('white', 'shiromedaka'),
@@ -107,16 +108,29 @@ export default {
     updateCharacterStatus(status, pCharacters) {
       this[status] = pCharacters
 
-      // 生死状態の更新
       pCharacters.forEach((character) => {
+        // 生死状態の更新
         if (status === 'killed') {
           character.alive = 'KILL'
           character.useEmergencyButton = true
         } else if (status === 'hunged') {
           character.alive = '吊られ'
           character.useEmergencyButton = true
-        } else {
+        } else if (status === 'hunged') {
           character.alive = '生'
+        }
+
+        // ステータスの更新
+        if (status === 'gray') {
+          character.status = 'グレー'
+        } else if (status === 'maybeImpostor') {
+          character.status = '怪しい'
+        } else if (status === 'maybeClue') {
+          character.status = '白目'
+        } else if (status === 'killed') {
+          character.status = 'KILL'
+        } else if (status === 'hunged') {
+          character.status = '吊られ'
         }
       })
     },
