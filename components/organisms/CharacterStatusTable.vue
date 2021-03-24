@@ -6,9 +6,8 @@
         <tr>
           <th class="text-left icon">icon</th>
           <th class="text-left">名前</th>
-          <th class="text-left">生死</th>
           <th class="text-left">ボタン</th>
-          <!-- <th class="text-left">その他</th> -->
+          <th class="text-left">マーク</th>
         </tr>
       </thead>
       <tbody>
@@ -23,13 +22,16 @@
               {{ character.name }}
             </div>
           </td>
-          <td>
+          <!-- <td>
             <character-alive-button :alive.sync="character.alive" />
-          </td>
+          </td> -->
           <td>
             <emergency-button
               :use-emergency-button.sync="character.useEmergencyButton"
             />
+          </td>
+          <td>
+            <mark-button :mark.sync="character.mark" />
           </td>
           <!-- <td>
             <status-button :status.sync="character.status" />
@@ -76,8 +78,9 @@
 <script>
 import CharacterDialog from '~/components/organisms/CharacterDialog'
 import ClueIcon from '~/components/molecures/ClueIcon'
-import CharacterAliveButton from '~/components/molecures/CharacterAliveButton.vue'
+// import CharacterAliveButton from '~/components/molecures/CharacterAliveButton.vue'
 import EmergencyButton from '~/components/molecures/EmergencyButton.vue'
+import MarkButton from '~/components/molecures/MarkButton.vue'
 // import StatusSelectBox from '~/components/molecures/StatusSelectBox.vue'
 // import StatusButton from '~/components/molecures/StatusButton.vue'
 
@@ -85,8 +88,9 @@ export default {
   components: {
     CharacterDialog,
     ClueIcon,
-    CharacterAliveButton,
+    // CharacterAliveButton,
     EmergencyButton,
+    MarkButton,
     // StatusSelectBox,
     // StatusButton,
   },

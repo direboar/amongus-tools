@@ -7,9 +7,7 @@ export default class Character {
     this.alive = '生'
     this.useEmergencyButton = false
     this.status = 'グレー'
-    this.day1 = ''
-    this.day2 = ''
-    this.day3 = ''
+    this.mark = '―'
     this.join = true
   }
 
@@ -23,6 +21,7 @@ export default class Character {
     this.alive = '生'
     this.useEmergencyButton = false
     this.status = 'グレー'
+    this.mark = '―'
   }
 
   init() {
