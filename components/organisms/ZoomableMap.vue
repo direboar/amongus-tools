@@ -9,8 +9,8 @@
           ><v-spacer></v-spacer
           ><v-btn color="blue darken-1" @click="showDialog = !showDialog"
             >閉じる</v-btn
-          ></v-app-bar
-        >
+          >
+        </v-app-bar>
         <field-map :src="src" :characters="characters" />
       </v-card>
     </v-dialog>
@@ -35,10 +35,6 @@ export default {
       showDialog: false,
     }
   },
-  methods: {
-    // edit(name) {
-    //   this.showDialog = true
-    // },
-  },
+  methods: {},
 }
 </script>

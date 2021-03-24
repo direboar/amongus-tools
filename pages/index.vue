@@ -1,15 +1,18 @@
 <template>
   <v-card>
-    <v-tabs v-model="tab">
-      <v-tab>
-        <v-icon left> mdi-account </v-icon>
-        メイン
-      </v-tab>
-      <v-tab>
-        <v-icon left> mdi-access-point </v-icon>
-        設定
-      </v-tab>
-    </v-tabs>
+    <v-app-bar dense>
+      <v-tabs v-model="tab">
+        <v-tab>
+          <v-icon left> mdi-account </v-icon>
+          メイン
+        </v-tab>
+        <v-tab>
+          <v-icon left> mdi-access-point </v-icon>
+          設定
+        </v-tab>
+      </v-tabs>
+      <v-btn @click="startGame">ゲームを開始する</v-btn>
+    </v-app-bar>
     <v-tabs-items v-model="tab" :touchless="true">
       <v-tab-item>
         <v-card>
@@ -40,15 +43,20 @@
           </v-row>
         </v-card>
       </v-tab-item>
-      <v-tab-item> 設定のリセットなど。<br /> </v-tab-item>
+      <v-tab-item>
+        <config-setting
+          @resetSetting="resetSetting"
+          @resetDeletedClue="resetDeletedClue"
+        />
+      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
-// import ImageDrag from '~/components/organisms/ImageDrag'
 import CharacterStatusTable from '~/components/organisms/CharacterStatusTable'
-// import CharacterClassifyArea from '~/components/organisms/CharacterClassifyArea'
+import ConfigSetting from '~/components/organisms/ConfigSetting'
+
 import Character from '~/domain/character'
 import CharacterClassifyArea from '~/components/organisms/CharacterClassifyArea.vue'
 import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
@@ -56,34 +64,17 @@ import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
 export default {
   components: {
     CharacterStatusTable,
-    // ImageDrag,
-    // ImageDragCharacterClassifyArea,
+    ConfigSetting,
     CharacterClassifyArea,
     ZoomableMap,
   },
-  // components: {
-  //   CharacterStatusTable2,
-  // },
   mounted() {
     this.gray = this.characters
   },
   data() {
     return {
       tab: null,
-      characters: [
-        new Character('black', 'toma'),
-        new Character('blue', 'minokuba'),
-        new Character('brown', 'diablo'),
-        new Character('green', 'GREEEEN'),
-        new Character('lime', 'mojinjp'),
-        new Character('orange', 'metaB'),
-        new Character('pink', 'PIIINK'),
-        new Character('purple', 'shiromedaka'),
-        new Character('red', 'yuusui'),
-        new Character('skyblue', 'SKYBLLUE'),
-        new Character('white', 'shiromedaka'),
-        new Character('yellow', 'GAU'),
-      ],
+      characters: this.createClues(),
       gray: [],
       maybeClue: [],
       maybeImpostor: [],
@@ -92,6 +83,38 @@ export default {
     }
   },
   methods: {
+    createClues() {
+      return [
+        new Character('black', 'black'),
+        new Character('blue', 'blue'),
+        new Character('brown', 'brown'),
+        new Character('green', 'green'),
+        new Character('lime', 'lime'),
+        new Character('orange', 'orange'),
+        new Character('pink', 'pink'),
+        new Character('purple', 'purple'),
+        new Character('red', 'red'),
+        new Character('skyblue', 'skyblue'),
+        new Character('white', 'white'),
+        new Character('yellow', 'yellow'),
+      ]
+    },
+    startGame() {
+      this.characters.forEach((character) => {
+        character.reset()
+      })
+      this.moveAllChacarctorToGray()
+    },
+    resetSetting() {
+      this.characters.forEach((character) => {
+        character.init()
+      })
+      this.moveAllChacarctorToGray()
+    },
+    resetDeletedClue() {
+      this.characters = this.createClues()
+      this.moveAllChacarctorToGray()
+    },
     updateCharacter(updated) {
       const found = this.characters.find((c) => {
         return updated.color === c.color
@@ -107,7 +130,6 @@ export default {
     },
     updateCharacterStatus(status, pCharacters) {
       this[status] = pCharacters
-
       pCharacters.forEach((character) => {
         // 生死状態の更新
         if (status === 'killed') {
@@ -133,6 +155,18 @@ export default {
           character.status = '吊られ'
         }
       })
+    },
+    moveAllChacarctorToGray() {
+      const move = (chars) => {
+        chars.forEach((c) => {
+          this.gray.push(c)
+        })
+        return []
+      }
+      this.maybeClue = move(this.maybeClue)
+      this.maybeImpostor = move(this.maybeImpostor)
+      this.killed = move(this.killed)
+      this.hunged = move(this.hunged)
     },
   },
 }

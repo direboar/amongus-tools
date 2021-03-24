@@ -18,4 +18,15 @@ export default class Character {
       ? `/icon/clue/${this.color}.png`
       : `/icon/dead/${this.color}.png`
   }
+
+  reset() {
+    this.alive = '生'
+    this.useEmergencyButton = false
+    this.status = 'グレー'
+  }
+
+  init() {
+    this.reset()
+    this.join = true
+  }
 }
