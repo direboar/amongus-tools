@@ -106,26 +106,31 @@ export default {
       this.moveAllChacarctorToGray()
     },
     resetSetting() {
-      this.characters.forEach((character) => {
-        character.init()
-      })
-      this.moveAllChacarctorToGray()
+      this.characters = this.createClues()
+      this.gray = this.characters
+      this.maybeClue = []
+      this.maybeImpostor = []
+      this.killed = []
+      this.hunged = []
     },
     resetDeletedClue() {
-      this.characters = this.createClues()
-      this.moveAllChacarctorToGray()
+      this.characters.forEach((character) => {
+        character.join = true
+      })
     },
     updateCharacter(updated) {
       const found = this.characters.find((c) => {
         return updated.color === c.color
       })
       if (found) {
-        if (!updated.join) {
-          const index = this.characters.indexOf(found)
-          this.characters.splice(index, 1)
-        } else {
-          Object.assign(found, updated)
-        }
+        // if (updated.join) {
+        //   updated.join = false
+        //   // const index = this.characters.indexOf(found)
+        //   // this.characters.splice(index, 1)
+        // } else {
+        Object.assign(found, updated)
+        console.log(updated)
+        // }
       }
     },
     updateCharacterStatus(status, pCharacters) {

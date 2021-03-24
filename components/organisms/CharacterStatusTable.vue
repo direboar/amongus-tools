@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(character, i) in characters" :key="i">
+        <tr v-for="(character, i) in joinCharacters" :key="i">
           <td>
             <div @click="edit(character)">
               <clue-icon :src="character.iconUrl" />
@@ -102,6 +102,12 @@ export default {
       showDialog: false,
       editedCharacter: null,
     }
+  },
+  computed: {
+    joinCharacters() {
+      console.log(this.characters.filter((c) => c.join).map((c) => c.join))
+      return this.characters.filter((c) => c.join)
+    },
   },
   methods: {
     edit(character) {

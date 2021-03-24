@@ -88,6 +88,12 @@ export default {
     this.createIcon({ top: '20px', left: '550px' }, 'yellow')
   },
   beforeDestroy() {},
+  watch: {
+    // characters(val) {
+    //   console.log('watch')
+    //   console.log(val)
+    // },
+  },
   methods: {
     handleDrag({ target, transform }) {
       target.style.transform = transform
