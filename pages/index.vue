@@ -44,9 +44,17 @@
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <config-setting :characters="characters" @resetSetting="resetSetting" />
+        <config-setting
+          :characters="characters"
+          @resetSetting="resetSetting"
+          @saveSetting="saveSetting"
+          @loadSetting="loadSetting"
+        />
       </v-tab-item>
     </v-tabs-items>
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" top>
+      {{ snackbar.message }}
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -74,6 +82,11 @@ export default {
       maybeImpostor: [],
       killed: [],
       hunged: [],
+      snackbar: {
+        show: false,
+        message: '',
+        color: 'success',
+      },
     }
   },
   mounted() {
@@ -104,25 +117,15 @@ export default {
     },
     resetSetting() {
       this.characters = this.createClues()
-      this.gray = this.characters
-      this.maybeClue = []
-      this.maybeImpostor = []
-      this.killed = []
-      this.hunged = []
+      this.resetCharacterStatusArea()
     },
     updateCharacter(updated) {
       const found = this.characters.find((c) => {
         return updated.color === c.color
       })
       if (found) {
-        // if (updated.join) {
-        //   updated.join = false
-        //   // const index = this.characters.indexOf(found)
-        //   // this.characters.splice(index, 1)
-        // } else {
         Object.assign(found, updated)
-        console.log(updated)
-        // }
+        // console.log(updated)
       }
     },
     updateCharacterStatus(status, pCharacters) {
@@ -165,6 +168,48 @@ export default {
       this.maybeImpostor = move(this.maybeImpostor)
       this.killed = move(this.killed)
       this.hunged = move(this.hunged)
+    },
+    resetCharacterStatusArea() {
+      this.gray = this.characters
+      this.maybeClue = []
+      this.maybeImpostor = []
+      this.killed = []
+      this.hunged = []
+    },
+    saveSetting(index) {
+      try {
+        localStorage.setItem(
+          `amongus-memo-tools.settings.${index}`,
+          JSON.stringify(this.characters)
+        )
+        this.showSnackbar('success', '設定をセーブしました')
+      } catch (e) {
+        this.showSnackbar('error', '設定のセーブに失敗しました')
+        console.err(e)
+      }
+    },
+    loadSetting(index) {
+      try {
+        const loaded = localStorage.getItem(
+          `amongus-memo-tools.settings.${index}`
+        )
+        if (loaded) {
+          const objects = JSON.parse(loaded)
+          this.characters = Character.assigns(objects)
+          this.resetCharacterStatusArea()
+          this.showSnackbar('success', '設定をロードしました')
+        } else {
+          this.showSnackbar('success', `設定{index}は保存されていません`)
+        }
+      } catch (e) {
+        this.showSnackbar('error', '設定のロードに失敗しました')
+        console.err(e)
+      }
+    },
+    showSnackbar(color, message) {
+      this.snackbar.color = color
+      this.snackbar.message = message
+      this.snackbar.show = true
     },
   },
 }

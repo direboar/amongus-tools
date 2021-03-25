@@ -39,6 +39,8 @@ export default {
   computed: {
     characterList: {
       get() {
+        console.log('characterList')
+        console.log(this.characters)
         return this.characters.filter((c) => c.join)
         // return this.characters
       },

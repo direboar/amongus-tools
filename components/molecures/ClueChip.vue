@@ -36,7 +36,11 @@ export default {
     return {}
   },
   computed: {},
-  watch: {},
+  watch: {
+    character(val) {
+      console.log('watch')
+    },
+  },
   methods: {},
 }
 </script>

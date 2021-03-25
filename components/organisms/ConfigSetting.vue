@@ -3,14 +3,20 @@
     <v-card hover rounded>
       <v-container fluid fill-height>
         <v-row>
-          <v-col cols="12"
+          <v-col cols="4"
             ><v-btn @click="resetSetting"
               >クルーの設定をリセットする</v-btn
             ></v-col
           >
+          <v-col cols="4">
+            <setting-persistent-button :index="1" @save="save" @load="load" />
+          </v-col>
+          <v-col cols="4">
+            <setting-persistent-button :index="2" @save="save" @load="load" />
+          </v-col>
         </v-row>
         <v-row>
-          <v-col cols="4" v-for="(character, i) in characters" :key="i">
+          <v-col v-for="(character, i) in characters" :key="i" cols="4">
             <character-setting-pane :character="character" />
           </v-col>
         </v-row>
@@ -24,9 +30,13 @@
 <script>
 import Character from '~/domain/character'
 import CharacterSettingPane from '~/components/molecures/CharacterSettingPane'
+import SettingPersistentButton from '~/components/molecures/SettingPersistentButton'
 
 export default {
-  components: { CharacterSettingPane },
+  components: {
+    CharacterSettingPane,
+    SettingPersistentButton,
+  },
   props: {
     // src: String,
     characters: Array,
@@ -40,6 +50,12 @@ export default {
   methods: {
     resetSetting() {
       this.$emit('resetSetting')
+    },
+    save(index) {
+      this.$emit('saveSetting', index)
+    },
+    load(index) {
+      this.$emit('loadSetting', index)
     },
   },
 }

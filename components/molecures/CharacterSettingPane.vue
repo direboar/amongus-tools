@@ -1,5 +1,5 @@
 <template>
-  <v-sheets>
+  <v-sheet>
     <v-container v-if="editedCharacter">
       <v-row align="center">
         <clue-icon :src="editedCharacter.iconUrl" />
@@ -18,7 +18,7 @@
         ></v-checkbox>
       </v-row>
     </v-container>
-  </v-sheets>
+  </v-sheet>
 </template>
 
 <style scoped></style>
