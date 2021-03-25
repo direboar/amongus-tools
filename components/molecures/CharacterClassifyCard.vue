@@ -4,9 +4,9 @@
       <v-row>
         <v-col cols="2">{{ title }}</v-col>
         <v-col cols="10">
-          <draggable v-model="joinCharacterList" group="clues">
+          <draggable v-model="characterList" group="clues">
             <clue-chip
-              v-for="(character, i) in joinCharacterList"
+              v-for="(character, i) in characterList"
               :key="i"
               :character="character"
             />
@@ -34,23 +34,22 @@ export default {
   computed: {
     characterList: {
       get() {
-        return this.characters
+        return this.characters.filter((c) => c.join)
+        // return this.characters
       },
       set(val) {
         this.$emit('updateCharacters', val)
       },
     },
-    joinCharacterList() {
-      console.log('joinCharacterList')
-      console.log(this.characters.filter((c) => c.join))
-      return this.characterList.filter((c) => c.join)
-    },
+    // joinCharacterList() {
+    //   return this.characterList.filter((c) => c.join)
+    // },
   },
   watch: {
-    characters(val) {
-      console.log('watch')
-      console.log(val)
-    },
+    // characters(val) {
+    //   console.log('watch')
+    //   console.log(val)
+    // },
   },
   data() {
     return {

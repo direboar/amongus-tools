@@ -135,6 +135,7 @@ export default {
     },
     updateCharacterStatus(status, pCharacters) {
       this[status] = pCharacters
+      console.log(pCharacters)
       pCharacters.forEach((character) => {
         // 生死状態の更新
         if (status === 'killed') {

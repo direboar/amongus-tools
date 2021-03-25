@@ -105,7 +105,7 @@ export default {
   },
   computed: {
     joinCharacters() {
-      console.log(this.characters.filter((c) => c.join).map((c) => c.join))
+      // console.log(this.characters.filter((c) => c.join).map((c) => c.join))
       return this.characters.filter((c) => c.join)
     },
   },
