@@ -13,12 +13,12 @@
       <tbody>
         <tr v-for="(character, i) in joinCharacters" :key="i">
           <td>
-            <div @click="edit(character)">
+            <div>
               <clue-icon :src="character.iconUrl" />
             </div>
           </td>
           <td>
-            <div @click="edit(character)">
+            <div>
               {{ character.name }}
             </div>
           </td>
@@ -40,11 +40,11 @@
       </tbody>
       <!-- </table> -->
     </v-simple-table>
-    <character-dialog
+    <!-- <character-dialog
       :show-dialog.sync="showDialog"
       :character="editedCharacter"
       @updateCharacter="updateCharacter"
-    />
+    /> -->
   </div>
 </template>
 
@@ -76,7 +76,7 @@
 </style>
 
 <script>
-import CharacterDialog from '~/components/organisms/CharacterDialog'
+// import CharacterDialog from '~/components/organisms/CharacterDialog'
 import ClueIcon from '~/components/molecures/ClueIcon'
 // import CharacterAliveButton from '~/components/molecures/CharacterAliveButton.vue'
 import EmergencyButton from '~/components/molecures/EmergencyButton.vue'
@@ -86,7 +86,7 @@ import MarkButton from '~/components/molecures/MarkButton.vue'
 
 export default {
   components: {
-    CharacterDialog,
+    // CharacterDialog,
     ClueIcon,
     // CharacterAliveButton,
     EmergencyButton,
@@ -99,7 +99,7 @@ export default {
   },
   data() {
     return {
-      showDialog: false,
+      // showDialog: false,
       editedCharacter: null,
     }
   },
@@ -110,13 +110,10 @@ export default {
     },
   },
   methods: {
-    edit(character) {
-      this.editedCharacter = character
-      this.showDialog = true
-    },
-    updateCharacter(character) {
-      this.$emit('updateCharacter', character)
-    },
+    // edit(character) {
+    //   this.editedCharacter = character
+    //   this.showDialog = true
+    // },
   },
 }
 </script>

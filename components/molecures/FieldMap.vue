@@ -73,6 +73,12 @@ export default {
       },
     }
   },
+  watch: {
+    // characters(val) {
+    //   console.log('watch')
+    //   console.log(val)
+    // },
+  },
   mounted() {
     this.createIcon({ top: '20px', left: '0px' }, 'black')
     this.createIcon({ top: '20px', left: '50px' }, 'blue')
@@ -88,12 +94,6 @@ export default {
     this.createIcon({ top: '20px', left: '550px' }, 'yellow')
   },
   beforeDestroy() {},
-  watch: {
-    // characters(val) {
-    //   console.log('watch')
-    //   console.log(val)
-    // },
-  },
   methods: {
     handleDrag({ target, transform }) {
       target.style.transform = transform

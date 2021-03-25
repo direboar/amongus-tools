@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card hover ripple rounded>
+    <v-card hover rounded>
       <v-container fluid fill-height>
         <v-row>
           <v-col cols="12"
@@ -10,11 +10,9 @@
           >
         </v-row>
         <v-row>
-          <v-col cols="12"
-            ><v-btn @click="resetDeletedClue"
-              >削除したクルーを復元する</v-btn
-            ></v-col
-          >
+          <v-col cols="4" v-for="(character, i) in characters" :key="i">
+            <character-setting-pane :character="character" />
+          </v-col>
         </v-row>
       </v-container>
     </v-card>
@@ -24,23 +22,24 @@
 <style lang="scss" scoped></style>
 
 <script>
+import Character from '~/domain/character'
+import CharacterSettingPane from '~/components/molecures/CharacterSettingPane'
+
 export default {
-  components: {},
+  components: { CharacterSettingPane },
   props: {
     // src: String,
-    // characters: Array,
+    characters: Array,
   },
   data() {
     return {
       showDialog: false,
+      character: new Character('red', 'RED'),
     }
   },
   methods: {
     resetSetting() {
       this.$emit('resetSetting')
-    },
-    resetDeletedClue() {
-      this.$emit('resetDeletedClue')
     },
   },
 }

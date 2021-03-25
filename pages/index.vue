@@ -31,8 +31,8 @@
                 <v-col cols="12">
                   <character-classify-area
                     :gray="gray"
-                    :maybeClue="maybeClue"
-                    :maybeImpostor="maybeImpostor"
+                    :maybe-clue="maybeClue"
+                    :maybe-impostor="maybeImpostor"
                     :killed="killed"
                     :hunged="hunged"
                     @updateCharacters="updateCharacterStatus"
@@ -44,10 +44,7 @@
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <config-setting
-          @resetSetting="resetSetting"
-          @resetDeletedClue="resetDeletedClue"
-        />
+        <config-setting :characters="characters" @resetSetting="resetSetting" />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -68,9 +65,6 @@ export default {
     CharacterClassifyArea,
     ZoomableMap,
   },
-  mounted() {
-    this.gray = this.characters
-  },
   data() {
     return {
       tab: null,
@@ -81,6 +75,9 @@ export default {
       killed: [],
       hunged: [],
     }
+  },
+  mounted() {
+    this.gray = this.characters
   },
   methods: {
     createClues() {
@@ -112,11 +109,6 @@ export default {
       this.maybeImpostor = []
       this.killed = []
       this.hunged = []
-    },
-    resetDeletedClue() {
-      this.characters.forEach((character) => {
-        character.join = true
-      })
     },
     updateCharacter(updated) {
       const found = this.characters.find((c) => {

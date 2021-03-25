@@ -49,9 +49,6 @@ export default {
     killed: Array,
     hunged: Array,
   },
-  mounted() {
-    // console.log(this.gray)
-  },
   data() {
     return {
       // selection: null,
@@ -66,6 +63,9 @@ export default {
       // clues5: ['hhh'],
       // showDialog: false,
     }
+  },
+  mounted() {
+    // console.log(this.gray)
   },
   methods: {
     updateCharacters(type, characters) {

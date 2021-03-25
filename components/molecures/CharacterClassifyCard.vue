@@ -31,6 +31,11 @@ export default {
     color: String,
     characters: Array,
   },
+  data() {
+    return {
+      selection: null,
+    }
+  },
   computed: {
     characterList: {
       get() {
@@ -50,11 +55,6 @@ export default {
     //   console.log('watch')
     //   console.log(val)
     // },
-  },
-  data() {
-    return {
-      selection: null,
-    }
   },
   methods: {
     // onEnd(value) {

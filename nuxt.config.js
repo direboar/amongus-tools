@@ -105,6 +105,6 @@ export default {
   },
 
   workbox: {
-    dev: true,
+    // dev: true,
   },
 }

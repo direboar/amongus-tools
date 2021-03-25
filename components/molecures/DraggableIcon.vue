@@ -1,10 +1,10 @@
 <template>
   <moveable
+    v-if="character.join"
     :style="moveableStyle"
     v-bind="moveable"
     @drag="handleDrag"
     @dragEnd="handleDragEnd"
-    v-if="character.join"
   >
     <div class="flex-box">
       <div class="left-box">
