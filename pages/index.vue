@@ -26,7 +26,11 @@
             <v-col cols="6">
               <v-row>
                 <v-col cols="12">
-                  <zoomable-map src="/map/skeld.png" :characters="characters" />
+                  <zoomable-map
+                    src="/map/skeld.png"
+                    :characters="characters"
+                    @updateCharacter="updateCharacter"
+                  />
                 </v-col>
                 <v-col cols="12">
                   <character-classify-area
@@ -91,6 +95,7 @@ export default {
   },
   mounted() {
     this.gray = this.characters
+    this.initPosition()
   },
   methods: {
     createClues() {
@@ -114,10 +119,12 @@ export default {
         character.reset()
       })
       this.moveAllChacarctorToGray()
+      this.initPosition()
     },
     resetSetting() {
       this.characters = this.createClues()
       this.resetCharacterStatusArea()
+      this.initPosition()
     },
     updateCharacter(updated) {
       const found = this.characters.find((c) => {
@@ -125,7 +132,6 @@ export default {
       })
       if (found) {
         Object.assign(found, updated)
-        // console.log(updated)
       }
     },
     updateCharacterStatus(status, pCharacters) {
@@ -197,6 +203,7 @@ export default {
           const objects = JSON.parse(loaded)
           this.characters = Character.assigns(objects)
           this.resetCharacterStatusArea()
+          this.initPosition()
           this.showSnackbar('success', '設定をロードしました')
         } else {
           this.showSnackbar('success', `設定{index}は保存されていません`)
@@ -205,6 +212,18 @@ export default {
         this.showSnackbar('error', '設定のロードに失敗しました')
         console.err(e)
       }
+    },
+    initPosition() {
+      let x = 0
+      this.characters.forEach((character) => {
+        if (character.join) {
+          character.position.top = '20px'
+          character.position.left = `${x}px`
+          console.log(character)
+          x = x + 50
+          console.log(x)
+        }
+      })
     },
     showSnackbar(color, message) {
       this.snackbar.color = color

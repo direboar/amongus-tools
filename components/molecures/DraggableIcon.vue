@@ -66,7 +66,6 @@ export default {
   },
   props: {
     color: String,
-    pPosition: Object,
     character: Object,
   },
   data() {
@@ -96,7 +95,7 @@ export default {
       // icon: `/icon/clue/${this.color}.png`,
       // FIXME v-modelを使うべき
       // https://stackoverflow.com/questions/40408096/whats-the-correct-way-to-pass-props-as-initial-data-in-vue-js-2
-      position: this.pPosition,
+      // position: this.character.position,
       id: uuidv4(),
     }
   },
@@ -135,9 +134,9 @@ export default {
           'z-index': '2',
         }
 
-        if (this.position) {
-          ret.top = this.position.top
-          ret.left = this.position.left
+        if (this.character) {
+          ret.top = this.character.position.top
+          ret.left = this.character.position.left
         }
         return ret
       },
@@ -159,7 +158,7 @@ export default {
           top: `${top}px`,
           left: `${left}px`,
         }
-        this.position = position
+        this.$emit('updatePosition', this.character, position)
       }
     },
     handleDragEnd({ target }) {},

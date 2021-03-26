@@ -1,17 +1,22 @@
 <template>
   <div>
-    <v-card hover ripple rounded @click="showDialog = !showDialog">
-      <v-img :src="src" />
+    <!-- <v-card hover ripple rounded @click="showDialog = !showDialog"> -->
+    <v-card hover rounded>
+      <field-map :src="src" :characters="characters" />
     </v-card>
-    <v-dialog v-model="showDialog" fullscreen @click="showDialog = !showDialog">
+    <v-dialog v-model="showDialog" fullscreen>
       <v-card>
         <v-app-bar
           ><v-spacer></v-spacer
-          ><v-btn color="blue darken-1" @click="showDialog = !showDialog"
+          ><v-btn color="blue darken-1" @click="showDialog = false">
             >閉じる</v-btn
           >
         </v-app-bar>
-        <field-map :src="src" :characters="characters" />
+        <field-map
+          :src="src"
+          :characters="characters"
+          @updateCharacter="updateCharacter"
+        />
       </v-card>
     </v-dialog>
   </div>
@@ -35,6 +40,10 @@ export default {
       showDialog: false,
     }
   },
-  methods: {},
+  methods: {
+    updateCharacter(character) {
+      this.$emit('updateCharacter', character)
+    },
+  },
 }
 </script>

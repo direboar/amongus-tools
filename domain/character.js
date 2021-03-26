@@ -9,6 +9,10 @@ export default class Character {
     this.status = 'グレー'
     this.mark = '―'
     this.join = true
+    this.position = {
+      top: '0px',
+      left: '0px',
+    }
   }
 
   get iconUrl() {
@@ -22,6 +26,10 @@ export default class Character {
     this.useEmergencyButton = false
     this.status = 'グレー'
     this.mark = '―'
+    this.position = {
+      top: '0px',
+      left: '0px',
+    }
   }
 
   init() {
