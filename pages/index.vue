@@ -143,7 +143,7 @@ export default {
           character.alive = 'KILL'
           character.useEmergencyButton = true
         } else if (status === 'hunged') {
-          character.alive = '吊られ'
+          character.alive = '追放'
           character.useEmergencyButton = true
         } else if (status === 'hunged') {
           character.alive = '生'
@@ -159,7 +159,7 @@ export default {
         } else if (status === 'killed') {
           character.status = 'KILL'
         } else if (status === 'hunged') {
-          character.status = '吊られ'
+          character.status = '追放'
         }
       })
     },
@@ -220,7 +220,7 @@ export default {
           character.position.top = '20px'
           character.position.left = `${x}px`
           console.log(character)
-          x = x + 50
+          x = x + 45
           console.log(x)
         }
       })

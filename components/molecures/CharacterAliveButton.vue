@@ -40,7 +40,7 @@ export default {
       if (this.alive === '生') {
         nextVal = 'KILL'
       } else if (this.alive === 'KILL') {
-        nextVal = '吊られ'
+        nextVal = '追放'
       } else {
         nextVal = '生'
       }

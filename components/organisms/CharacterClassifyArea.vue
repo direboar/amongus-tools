@@ -25,7 +25,7 @@
       @updateCharacters="updateCharacters(`killed`, $event)"
     />
     <character-classify-card
-      title="吊られ"
+      title="追放"
       :characters="hunged"
       color="light-blue brown darken-2"
       @updateCharacters="updateCharacters(`hunged`, $event)"

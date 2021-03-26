@@ -112,14 +112,16 @@ export default {
       // const character = this.characters.find((e) => {
       //   return e.color === color
       // })
-      const component = {
-        componentClass: Vue.extend(DraggableIcon),
-        props: {
-          color: character.color,
-          character,
-        },
+      if (character.join) {
+        const component = {
+          componentClass: Vue.extend(DraggableIcon),
+          props: {
+            color: character.color,
+            character,
+          },
+        }
+        this.components.push(component)
       }
-      this.components.push(component)
       // const updateCharacter = new Character()
       // Object.assign(updateCharacter, character)
       // character.position = position
