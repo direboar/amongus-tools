@@ -26,7 +26,7 @@
             <v-col cols="6">
               <v-row>
                 <v-col cols="12">
-                  <zoomable-map
+                  <field-map
                     src="/map/skeld.png"
                     :characters="characters"
                     @updateCharacter="updateCharacter"
@@ -68,14 +68,15 @@ import ConfigSetting from '~/components/organisms/ConfigSetting'
 
 import Character from '~/domain/character'
 import CharacterClassifyArea from '~/components/organisms/CharacterClassifyArea.vue'
-import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
+// import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
+import FieldMap from '~/components/molecures/FieldMap'
 
 export default {
   components: {
     CharacterStatusTable,
     ConfigSetting,
     CharacterClassifyArea,
-    ZoomableMap,
+    FieldMap,
   },
   data() {
     return {

@@ -79,7 +79,6 @@ export default {
   watch: {
     characters(val) {
       this.createIcons()
-      // console.log('characters')
     },
   },
   mounted() {
@@ -92,26 +91,11 @@ export default {
       this.characters.forEach((character) => {
         this.createIcon(character)
       })
-      // this.createIcon({ top: '20px', left: '0px' }, 'black')
-      // this.createIcon({ top: '20px', left: '50px' }, 'blue')
-      // this.createIcon({ top: '20px', left: '100px' }, 'brown')
-      // this.createIcon({ top: '20px', left: '150px' }, 'green')
-      // this.createIcon({ top: '20px', left: '200px' }, 'lime')
-      // this.createIcon({ top: '20px', left: '250px' }, 'orange')
-      // this.createIcon({ top: '20px', left: '300px' }, 'pink')
-      // this.createIcon({ top: '20px', left: '350px' }, 'purple')
-      // this.createIcon({ top: '20px', left: '400px' }, 'red')
-      // this.createIcon({ top: '20px', left: '450px' }, 'skyblue')
-      // this.createIcon({ top: '20px', left: '500px' }, 'white')
-      // this.createIcon({ top: '20px', left: '550px' }, 'yellow')
     },
     handleDrag({ target, transform }) {
       target.style.transform = transform
     },
     createIcon(character) {
-      // const character = this.characters.find((e) => {
-      //   return e.color === color
-      // })
       if (character.join) {
         const component = {
           componentClass: Vue.extend(DraggableIcon),
@@ -122,11 +106,6 @@ export default {
         }
         this.components.push(component)
       }
-      // const updateCharacter = new Character()
-      // Object.assign(updateCharacter, character)
-      // character.position = position
-      // console.log(character)
-      // this.$emit('updateCharacter', character)
     },
     updatePosition(character, position) {
       const updateCharacter = new Character()
