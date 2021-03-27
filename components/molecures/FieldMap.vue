@@ -51,6 +51,10 @@ export default {
       default: '/map/skeld.png',
     },
     characters: Array,
+    mapIndex: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -79,6 +83,9 @@ export default {
     characters(val) {
       this.createIcons()
     },
+    mapIndex(val) {
+      this.createIcons()
+    },
   },
   mounted() {
     this.createIcons()
@@ -100,6 +107,7 @@ export default {
         props: {
           color: character.color,
           character,
+          mapIndex: this.mapIndex,
         },
       }
       this.components.push(component)
@@ -108,7 +116,7 @@ export default {
       // 冗長なので何とかしたい
       const updateCharacter = new Character()
       Object.assign(updateCharacter, character)
-      character.position = position
+      character.position[this.mapIndex] = position
       console.log(character)
       this.$emit('updateCharacter', character)
     },

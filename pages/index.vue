@@ -11,6 +11,31 @@
           設定
         </v-tab>
       </v-tabs>
+      <map-select-button
+        :mapIndex="0"
+        :currentIndex="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :mapIndex="1"
+        :currentIndex="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :mapIndex="2"
+        :currentIndex="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :mapIndex="3"
+        :currentIndex="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :mapIndex="4"
+        :currentIndex="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
       <v-btn @click="startGame">ゲームを開始する</v-btn>
     </v-app-bar>
     <v-tabs-items v-model="tab" :touchless="true">
@@ -29,6 +54,7 @@
                   <field-map
                     src="/map/skeld.png"
                     :characters="characters"
+                    :mapIndex="mapIndex"
                     @updateCharacter="updateCharacter"
                   />
                 </v-col>
@@ -71,6 +97,7 @@ import Character from '~/domain/character'
 import CharacterClassifyArea from '~/components/organisms/CharacterClassifyArea.vue'
 // import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
 import FieldMap from '~/components/molecures/FieldMap'
+import MapSelectButton from '~/components/molecures/MapSelectButton'
 
 export default {
   components: {
@@ -78,6 +105,7 @@ export default {
     ConfigSetting,
     CharacterClassifyArea,
     FieldMap,
+    MapSelectButton,
   },
   data() {
     return {
@@ -93,6 +121,7 @@ export default {
         message: '',
         color: 'success',
       },
+      mapIndex: 0,
     }
   },
   mounted() {
@@ -100,6 +129,9 @@ export default {
     this.initPosition()
   },
   methods: {
+    updateMapIndex(mapIndex) {
+      this.mapIndex = mapIndex
+    },
     createClues() {
       return [
         new Character('black', 'black'),
@@ -225,13 +257,14 @@ export default {
       let x = 0
       this.characters.forEach((character) => {
         if (character.join) {
-          character.position.top = '20px'
-          character.position.left = `${x}px`
-          console.log(character)
+          character.resetPosition({
+            top: '20px',
+            left: `${x}px`,
+          })
           x = x + 45
-          console.log(x)
         }
       })
+      this.mapIndex = 0
     },
     showSnackbar(color, message) {
       this.snackbar.color = color

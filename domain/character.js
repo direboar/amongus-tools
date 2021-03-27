@@ -9,10 +9,11 @@ export default class Character {
     this.status = 'グレー'
     this.mark = '―'
     this.join = true
-    this.position = {
+    this.position = {}
+    this.resetPosition({
       top: '0px',
       left: '0px',
-    }
+    })
   }
 
   get iconUrl() {
@@ -26,15 +27,24 @@ export default class Character {
     this.useEmergencyButton = false
     this.status = 'グレー'
     this.mark = '―'
-    this.position = {
+    this.resetPosition({
       top: '0px',
       left: '0px',
-    }
+    })
   }
 
   init() {
     this.reset()
     this.join = true
+  }
+
+  resetPosition(position) {
+    // 配列
+    for (let i = 0; i < 5; i++) {
+      const copy = {}
+      Object.assign(copy, position)
+      this.position[i] = copy
+    }
   }
 
   static assign(obj) {

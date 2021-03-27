@@ -67,6 +67,10 @@ export default {
   props: {
     color: String,
     character: Object,
+    mapIndex: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -129,8 +133,8 @@ export default {
         }
 
         if (this.character) {
-          ret.top = this.character.position.top
-          ret.left = this.character.position.left
+          ret.top = this.character.position[this.mapIndex].top
+          ret.left = this.character.position[this.mapIndex].left
         }
         return ret
       },
