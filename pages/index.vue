@@ -53,6 +53,7 @@
           @resetSetting="resetSetting"
           @saveSetting="saveSetting"
           @loadSetting="loadSetting"
+          @updateCharacter="updateCharacter"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -131,8 +132,14 @@ export default {
       const found = this.characters.find((c) => {
         return updated.color === c.color
       })
+      // キャラクターの追加状態が変更されたか。
+      const joined = found.join !== updated.join
       if (found) {
         Object.assign(found, updated)
+      }
+      // キャラクターが追加された場合は、地図上の表示位置を初期化する。
+      if (joined) {
+        this.initPosition()
       }
     },
     updateCharacterStatus(status, pCharacters) {

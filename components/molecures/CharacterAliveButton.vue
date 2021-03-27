@@ -26,10 +26,8 @@ export default {
       } else {
         return 'light-blue brown darken-2'
       }
-      // return this.alive ? 'green darken-3' : 'red darken-4'
     },
     buttonname() {
-      // return this.alive ? '生' : '死'
       return this.alive
     },
   },

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <v-card hover ripple rounded @click="showDialog = !showDialog"> -->
     <v-card hover rounded>
       <field-map :src="src" :characters="characters" />
     </v-card>

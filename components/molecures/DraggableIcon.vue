@@ -90,12 +90,6 @@ export default {
         horizontalGuideline: null,
         verticalGuideline: null,
       },
-      // status: '',
-      // status: '/icon/status/gray.png',
-      // icon: `/icon/clue/${this.color}.png`,
-      // FIXME v-modelを使うべき
-      // https://stackoverflow.com/questions/40408096/whats-the-correct-way-to-pass-props-as-initial-data-in-vue-js-2
-      // position: this.character.position,
       id: uuidv4(),
     }
   },
@@ -166,39 +160,6 @@ export default {
       this.$el.parentNode.removeChild(this.$el)
       this.$destroy()
     },
-    // dblclick() {
-    //   if (this.icon.includes('clue') && this.status === '') {
-    //     this.icon = `/icon/dead/${this.color}.png`
-    //     this.status = ''
-    //   } else if (this.icon.includes('dead')) {
-    //     this.icon = `/icon/clue/${this.color}.png`
-    //     this.status = '/icon/status/gray.png'
-    //   } else if (this.icon.includes('clue') && this.status.includes('gray')) {
-    //     this.icon = `/icon/clue/${this.color}.png`
-    //     this.status = '/icon/status/sirokaku.png'
-    //   } else if (
-    //     this.icon.includes('clue') &&
-    //     this.status.includes('sirokaku')
-    //   ) {
-    //     this.icon = `/icon/clue/${this.color}.png`
-    //     this.status = '/icon/status/impostor.png'
-    //   } else if (
-    //     this.icon.includes('clue') &&
-    //     this.status.includes('impostor')
-    //   ) {
-    //     this.icon = `/icon/clue/${this.color}.png`
-    //     this.status = ''
-    //   }
-    // },
-    // touchstart() {
-    //   this.lap = Date.now()
-    // },
-    // touchend() {
-    //   const delta = Date.now() - this.lap
-    //   if (delta < 100) {
-    //     this.dblclick()
-    //   }
-    // },
   },
 }
 </script>

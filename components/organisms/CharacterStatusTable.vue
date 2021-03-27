@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-simple-table class="table" dense :dark="false">
-      <!-- <table> -->
       <thead>
         <tr>
           <th class="text-left icon">icon</th>
@@ -22,9 +21,6 @@
               {{ character.name }}
             </div>
           </td>
-          <!-- <td>
-            <character-alive-button :alive.sync="character.alive" />
-          </td> -->
           <td>
             <emergency-button
               :use-emergency-button.sync="character.useEmergencyButton"
@@ -33,18 +29,9 @@
           <td>
             <mark-button :mark.sync="character.mark" />
           </td>
-          <!-- <td>
-            <status-button :status.sync="character.status" />
-          </td> -->
         </tr>
       </tbody>
-      <!-- </table> -->
     </v-simple-table>
-    <!-- <character-dialog
-      :show-dialog.sync="showDialog"
-      :character="editedCharacter"
-      @updateCharacter="updateCharacter"
-    /> -->
   </div>
 </template>
 
@@ -76,44 +63,29 @@
 </style>
 
 <script>
-// import CharacterDialog from '~/components/organisms/CharacterDialog'
 import ClueIcon from '~/components/molecures/ClueIcon'
-// import CharacterAliveButton from '~/components/molecures/CharacterAliveButton.vue'
 import EmergencyButton from '~/components/molecures/EmergencyButton.vue'
 import MarkButton from '~/components/molecures/MarkButton.vue'
-// import StatusSelectBox from '~/components/molecures/StatusSelectBox.vue'
-// import StatusButton from '~/components/molecures/StatusButton.vue'
 
 export default {
   components: {
-    // CharacterDialog,
     ClueIcon,
-    // CharacterAliveButton,
     EmergencyButton,
     MarkButton,
-    // StatusSelectBox,
-    // StatusButton,
   },
   props: {
     characters: Array,
   },
   data() {
     return {
-      // showDialog: false,
       editedCharacter: null,
     }
   },
   computed: {
     joinCharacters() {
-      // console.log(this.characters.filter((c) => c.join).map((c) => c.join))
       return this.characters.filter((c) => c.join)
     },
   },
-  methods: {
-    // edit(character) {
-    //   this.editedCharacter = character
-    //   this.showDialog = true
-    // },
-  },
+  methods: {},
 }
 </script>

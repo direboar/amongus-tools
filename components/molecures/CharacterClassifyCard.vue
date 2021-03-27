@@ -42,26 +42,13 @@ export default {
         console.log('characterList')
         console.log(this.characters)
         return this.characters.filter((c) => c.join)
-        // return this.characters
       },
       set(val) {
         this.$emit('updateCharacters', val)
       },
     },
-    // joinCharacterList() {
-    //   return this.characterList.filter((c) => c.join)
-    // },
   },
-  watch: {
-    // characters(val) {
-    //   console.log('watch')
-    //   console.log(val)
-    // },
-  },
-  methods: {
-    // onEnd(value) {
-    //   console.log(value)
-    // },
-  },
+  watch: {},
+  methods: {},
 }
 </script>

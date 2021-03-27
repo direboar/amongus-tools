@@ -27,21 +27,7 @@ export default {
   props: {
     index: Number,
   },
-  // watch: {
-  // },
-  // data() {
-  //   return {}
-  // },
-  computed: {
-    // editedCharacter: {
-    //   get() {
-    //     return this.character
-    //   },
-    //   set(val) {
-    //     this.$emit('update:character', val)
-    //   },
-    // },
-  },
+  computed: {},
   methods: {
     save() {
       this.$emit('save', this.index)

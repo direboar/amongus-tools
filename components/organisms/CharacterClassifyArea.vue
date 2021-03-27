@@ -50,19 +50,7 @@ export default {
     hunged: Array,
   },
   data() {
-    return {
-      // selection: null,
-      // selection2: null,
-      // selection3: null,
-      // selection4: null,
-      // selection5: null,
-      // clues: ['aaa', 'bbb', 'ccc', 'ddd'],
-      // clues2: ['eee'],
-      // clues3: ['fff'],
-      // clues4: ['ggg'],
-      // clues5: ['hhh'],
-      // showDialog: false,
-    }
+    return {}
   },
   mounted() {
     // console.log(this.gray)
@@ -71,9 +59,6 @@ export default {
     updateCharacters(type, characters) {
       this.$emit('updateCharacters', type, characters)
     },
-    // edit(name) {
-    //   this.showDialog = true
-    // },
   },
 }
 </script>

@@ -37,7 +37,6 @@
 
 <script>
 import Vue from 'vue'
-// import { v4 as uuidv4 } from 'uuid'
 
 import DraggableIcon from './DraggableIcon'
 import Character from '~/domain/character'
@@ -96,18 +95,17 @@ export default {
       target.style.transform = transform
     },
     createIcon(character) {
-      if (character.join) {
-        const component = {
-          componentClass: Vue.extend(DraggableIcon),
-          props: {
-            color: character.color,
-            character,
-          },
-        }
-        this.components.push(component)
+      const component = {
+        componentClass: Vue.extend(DraggableIcon),
+        props: {
+          color: character.color,
+          character,
+        },
       }
+      this.components.push(component)
     },
     updatePosition(character, position) {
+      // 冗長なので何とかしたい
       const updateCharacter = new Character()
       Object.assign(updateCharacter, character)
       character.position = position

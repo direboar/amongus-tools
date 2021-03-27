@@ -12,14 +12,12 @@ import CharacterStatusButtonMixin from './CharacterStatusButtonMixin'
 export default {
   mixins: [CharacterStatusButtonMixin],
   props: {
-    // 緊急ボタン使用済み。
     status: {
       type: String,
     },
   },
   computed: {
     color() {
-      // return !this.useEmergencyButton ? 'green darken-3' : 'red darken-4'
       if (this.status === 'グレー') {
         return 'blue-grey darken-1'
       }

@@ -12,7 +12,6 @@ import CharacterStatusButtonMixin from './CharacterStatusButtonMixin'
 export default {
   mixins: [CharacterStatusButtonMixin],
   props: {
-    // 緊急ボタン使用済み。
     mark: {
       type: String,
     },
@@ -20,7 +19,6 @@ export default {
 
   computed: {
     color() {
-      // return !this.useEmergencyButton ? 'green darken-3' : 'red darken-4'
       if (this.mark === '◎') {
         return 'light-blue  darken-2'
       } else if (this.mark === '〇') {

@@ -1,17 +1,17 @@
 <template>
   <v-sheet>
-    <v-container v-if="editedCharacter">
+    <v-container v-if="character">
       <v-row align="center">
-        <clue-icon :src="editedCharacter.iconUrl" />
+        <clue-icon :src="character.iconUrl" />
         <v-text-field
-          v-model="editedCharacter.name"
+          v-model="name"
           class="text-field"
           label="名前"
           required
           @blur="onBlur"
         ></v-text-field>
         <v-checkbox
-          v-model="editedCharacter.join"
+          v-model="join"
           label="参加"
           color="red"
           hide-details
@@ -24,7 +24,7 @@
 <style scoped></style>
 
 <script>
-// import Character from '~/domain/character'
+import Character from '~/domain/character'
 import ClueIcon from '~/components/molecures/ClueIcon'
 
 export default {
@@ -32,18 +32,32 @@ export default {
   props: {
     character: Object,
   },
-  // watch: {
-  // },
-  // data() {
-  //   return {}
-  // },
   computed: {
-    editedCharacter: {
+    name: {
       get() {
-        return this.character
+        console.log('xxxx')
+        return this.character.name
       },
       set(val) {
-        this.$emit('update:character', val)
+        // FIXME 冗長なので何とかしたい。
+        const ret = new Character()
+        Object.assign(ret, this.character)
+        ret.name = val
+        this.$emit('updateCharacter', ret)
+      },
+    },
+    join: {
+      get() {
+        return this.character.join
+      },
+      set(val) {
+        // FIXME 冗長なので何とかしたい。
+        const ret = new Character()
+        Object.assign(ret, this.character)
+        ret.join = val
+        console.log(`xxxx${ret}`)
+        console.log(ret)
+        this.$emit('updateCharacter', ret)
       },
     },
   },

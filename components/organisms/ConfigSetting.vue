@@ -17,7 +17,10 @@
         </v-row>
         <v-row>
           <v-col v-for="(character, i) in characters" :key="i" cols="4">
-            <character-setting-pane :character="character" />
+            <character-setting-pane
+              :character="character"
+              @updateCharacter="updateCharacter"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -28,7 +31,6 @@
 <style lang="scss" scoped></style>
 
 <script>
-import Character from '~/domain/character'
 import CharacterSettingPane from '~/components/molecures/CharacterSettingPane'
 import SettingPersistentButton from '~/components/molecures/SettingPersistentButton'
 
@@ -38,13 +40,11 @@ export default {
     SettingPersistentButton,
   },
   props: {
-    // src: String,
     characters: Array,
   },
   data() {
     return {
       showDialog: false,
-      character: new Character('red', 'RED'),
     }
   },
   methods: {
@@ -56,6 +56,9 @@ export default {
     },
     load(index) {
       this.$emit('loadSetting', index)
+    },
+    updateCharacter(character) {
+      this.$emit('updateCharacter', character)
     },
   },
 }
