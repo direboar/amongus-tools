@@ -10,8 +10,8 @@
           >
           <v-row>
             <v-col cols="3">
-              <v-radio-group v-model="mapUrl" column>
-                Map
+              Map
+              <v-radio-group v-model="mapUrl">
                 <v-radio
                   label="skeld"
                   color="red"
