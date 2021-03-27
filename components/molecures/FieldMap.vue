@@ -48,7 +48,7 @@ export default {
   props: {
     src: {
       type: String,
-      default: '/map/skeld.png',
+      default: '/map/mirahq-2.png',
     },
     characters: Array,
     mapIndex: {

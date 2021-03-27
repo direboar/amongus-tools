@@ -52,7 +52,7 @@
               <v-row>
                 <v-col cols="12">
                   <field-map
-                    src="/map/skeld.png"
+                    :src="map"
                     :characters="characters"
                     :mapIndex="mapIndex"
                     @updateCharacter="updateCharacter"
@@ -76,6 +76,7 @@
       <v-tab-item>
         <config-setting
           :characters="characters"
+          :map.sync="map"
           @resetSetting="resetSetting"
           @saveSetting="saveSetting"
           @loadSetting="loadSetting"
@@ -121,6 +122,7 @@ export default {
         message: '',
         color: 'success',
       },
+      map: '/map/skeld.png',
       mapIndex: 0,
     }
   },

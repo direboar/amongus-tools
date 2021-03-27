@@ -3,15 +3,37 @@
     <v-card hover rounded>
       <v-container fluid fill-height>
         <v-row>
-          <v-col cols="4"
+          <v-col cols="3"
             ><v-btn @click="resetSetting"
               >クルーの設定をリセットする</v-btn
             ></v-col
           >
-          <v-col cols="4">
+          <v-row>
+            <v-col cols="3">
+              <v-radio-group v-model="mapUrl" column>
+                <p>Mapを選択</p>
+                <v-radio
+                  label="skeld"
+                  color="red"
+                  value="/map/skeld.png"
+                ></v-radio>
+                <v-radio
+                  label="polus"
+                  color="red"
+                  value="/map/polus.png"
+                ></v-radio>
+                <v-radio
+                  label="mirahq"
+                  color="red"
+                  value="/map/mirahq.png"
+                ></v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
+          <v-col cols="3">
             <setting-persistent-button :index="1" @save="save" @load="load" />
           </v-col>
-          <v-col cols="4">
+          <v-col cols="3">
             <setting-persistent-button :index="2" @save="save" @load="load" />
           </v-col>
         </v-row>
@@ -41,11 +63,25 @@ export default {
   },
   props: {
     characters: Array,
+    map: {
+      type: String,
+      default: '/map/skeld.png',
+    },
   },
   data() {
     return {
       showDialog: false,
     }
+  },
+  computed: {
+    mapUrl: {
+      get() {
+        return this.map
+      },
+      set(val) {
+        this.$emit('update:map', val)
+      },
+    },
   },
   methods: {
     resetSetting() {
