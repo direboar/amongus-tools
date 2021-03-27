@@ -35,7 +35,6 @@ export default {
   computed: {
     name: {
       get() {
-        console.log('xxxx')
         return this.character.name
       },
       set(val) {
@@ -55,8 +54,6 @@ export default {
         const ret = new Character()
         Object.assign(ret, this.character)
         ret.join = val
-        console.log(`xxxx${ret}`)
-        console.log(ret)
         this.$emit('updateCharacter', ret)
       },
     },

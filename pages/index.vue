@@ -11,6 +11,8 @@
           設定
         </v-tab>
       </v-tabs>
+      <v-btn color="light-blue darken-3" @click="startGame">開始</v-btn>
+      <v-divider class="mx-4" vertical></v-divider>
       <map-select-button
         :mapIndex="0"
         :currentIndex="mapIndex"
@@ -36,7 +38,8 @@
         :currentIndex="mapIndex"
         @updateMapIndex="updateMapIndex"
       />
-      <v-btn @click="startGame">ゲームを開始する</v-btn>
+      <v-divider class="mx-4" vertical></v-divider>
+      <v-btn color="brown darken-3" @click="zoom = true">地図拡大</v-btn>
     </v-app-bar>
     <v-tabs-items v-model="tab" :touchless="true">
       <v-tab-item>
@@ -51,10 +54,11 @@
             <v-col cols="6">
               <v-row>
                 <v-col cols="12">
-                  <field-map
+                  <zoomable-map
                     :src="map"
                     :characters="characters"
                     :mapIndex="mapIndex"
+                    :zoom.sync="zoom"
                     @updateCharacter="updateCharacter"
                   />
                 </v-col>
@@ -96,8 +100,8 @@ import ConfigSetting from '~/components/organisms/ConfigSetting'
 
 import Character from '~/domain/character'
 import CharacterClassifyArea from '~/components/organisms/CharacterClassifyArea.vue'
-// import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
-import FieldMap from '~/components/molecures/FieldMap'
+import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
+// import FieldMap from '~/components/molecures/FieldMap'
 import MapSelectButton from '~/components/molecures/MapSelectButton'
 
 export default {
@@ -105,7 +109,8 @@ export default {
     CharacterStatusTable,
     ConfigSetting,
     CharacterClassifyArea,
-    FieldMap,
+    // FieldMap,
+    ZoomableMap,
     MapSelectButton,
   },
   data() {
@@ -124,6 +129,7 @@ export default {
       },
       map: '/map/skeld.png',
       mapIndex: 0,
+      zoom: false,
     }
   },
   mounted() {

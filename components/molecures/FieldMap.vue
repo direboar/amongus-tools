@@ -9,7 +9,7 @@
         v-bind="component.props"
         @updatePosition="updatePosition"
       ></component>
-      <img class="screen" :src="src" />
+      <img :style="screen" :src="src" />
     </div>
   </div>
 </template>
@@ -21,15 +21,14 @@
   left: 0px;
   height: 70px;
 }
-.screen {
-  /* overflow: visible; */
+
+/* see https://jajaaan.co.jp/web-production/frontend/css-vw-vh-vmin-vmax/ */
+/* .screen {
   position: relative;
   top: 0px;
   left: 0px;
-  /* see https://jajaaan.co.jp/web-production/frontend/css-vw-vh-vmin-vmax/ */
-  /* width: 85vw; */
   width: 50vw;
-}
+} */
 .battlearea {
   position: relative;
 }
@@ -55,6 +54,10 @@ export default {
       type: Number,
       default: 0,
     },
+    width: {
+      type: String,
+      default: '50vw',
+    },
   },
   data() {
     return {
@@ -78,6 +81,16 @@ export default {
         verticalGuideline: null,
       },
     }
+  },
+  computed: {
+    screen() {
+      return {
+        position: 'relative',
+        top: '0px',
+        left: '0px',
+        width: this.width,
+      }
+    },
   },
   watch: {
     characters(val) {

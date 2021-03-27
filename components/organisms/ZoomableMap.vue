@@ -1,21 +1,24 @@
 <template>
   <div>
-    <v-card hover rounded>
-      <field-map :src="src" :characters="characters" />
+    <v-card hover rounded @dblclick="showDialog = true">
+      <field-map :src="src" :characters="characters" :mapIndex="mapIndex" />
     </v-card>
     <v-dialog v-model="showDialog" fullscreen>
       <v-card>
         <v-app-bar
           ><v-spacer></v-spacer
           ><v-btn color="blue darken-1" @click="showDialog = false">
-            >閉じる</v-btn
+            閉じる</v-btn
           >
         </v-app-bar>
-        <field-map
+        <v-img :src="src" />
+        <!-- <field-map
           :src="src"
           :characters="characters"
+          :mapIndex="mapIndex"
+          width="100vw"
           @updateCharacter="updateCharacter"
-        />
+        /> -->
       </v-card>
     </v-dialog>
   </div>
@@ -33,11 +36,26 @@ export default {
   props: {
     src: String,
     characters: Array,
+    zoom: Boolean,
+    mapIndex: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
-      showDialog: false,
+      touched: false,
     }
+  },
+  computed: {
+    showDialog: {
+      get() {
+        return this.zoom
+      },
+      set(val) {
+        this.$emit('update:zoom', val)
+      },
+    },
   },
   methods: {
     updateCharacter(character) {
