@@ -11,7 +11,7 @@
           <v-row>
             <v-col cols="3">
               <v-radio-group v-model="mapUrl" column>
-                <p>Mapを選択</p>
+                Map
                 <v-radio
                   label="skeld"
                   color="red"
