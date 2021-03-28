@@ -1,5 +1,7 @@
 <template>
-  <img class="clue-image" :src="src" />
+  <span :style="span">
+    <img class="clue-image" :src="src" />
+  </span>
 </template>
 
 <style scoped>
@@ -19,7 +21,7 @@ export default {
   },
   data() {
     return {
-      // className: 'clue-image',
+      // paddingTop: '0px',
     }
   },
   // watch: {
@@ -27,9 +29,19 @@ export default {
   //   },
   // },
   computed: {
-    // isDead() {
-    //   return this.src && this.src.includes('dead')
-    // },
+    span() {
+      const span = {
+        'padding-right': '0px',
+        'padding-top': '0px',
+        display: 'inline-block',
+      }
+      const isDead = this.src.includes('dead')
+      if (isDead) {
+        span['padding-top'] = '7px'
+        span['padding-bottom'] = '7px'
+      }
+      return span
+    },
   },
   methods: {},
 }
