@@ -4,7 +4,7 @@ export default class Character {
     this.color = color
     // 名前
     this.name = name
-    this.alive = '生'
+    // this.alive = '生'
     this.useEmergencyButton = false
     this.status = 'グレー'
     this.mark = '―'
@@ -16,14 +16,18 @@ export default class Character {
     })
   }
 
+  get isAlive() {
+    return this.status !== 'KILL' && this.status !== '追放'
+  }
+
   get iconUrl() {
-    return this.alive === '生'
+    return this.isAlive
       ? `/icon/clue/${this.color}.png`
       : `/icon/dead/${this.color}.png`
   }
 
   reset() {
-    this.alive = '生'
+    // this.alive = '生'
     this.useEmergencyButton = false
     this.status = 'グレー'
     this.mark = '―'

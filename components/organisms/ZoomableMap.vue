@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card hover rounded @dblclick="showDialog = true">
-      <field-map :src="src" :characters="characters" :mapIndex="mapIndex" />
+      <field-map :src="src" :characters="characters" :map-index="mapIndex" />
     </v-card>
     <v-dialog v-model="showDialog" fullscreen>
       <v-card>

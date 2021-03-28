@@ -14,28 +14,28 @@
       <v-btn color="light-blue darken-3" @click="startGame">開始</v-btn>
       <v-divider class="mx-4" vertical></v-divider>
       <map-select-button
-        :mapIndex="0"
-        :currentIndex="mapIndex"
+        :map-index="0"
+        :current-index="mapIndex"
         @updateMapIndex="updateMapIndex"
       />
       <map-select-button
-        :mapIndex="1"
-        :currentIndex="mapIndex"
+        :map-index="1"
+        :current-index="mapIndex"
         @updateMapIndex="updateMapIndex"
       />
       <map-select-button
-        :mapIndex="2"
-        :currentIndex="mapIndex"
+        :map-index="2"
+        :current-index="mapIndex"
         @updateMapIndex="updateMapIndex"
       />
       <map-select-button
-        :mapIndex="3"
-        :currentIndex="mapIndex"
+        :map-index="3"
+        :current-index="mapIndex"
         @updateMapIndex="updateMapIndex"
       />
       <map-select-button
-        :mapIndex="4"
-        :currentIndex="mapIndex"
+        :map-index="4"
+        :current-index="mapIndex"
         @updateMapIndex="updateMapIndex"
       />
       <v-divider class="mx-4" vertical></v-divider>
@@ -57,7 +57,7 @@
                   <zoomable-map
                     :src="map"
                     :characters="characters"
-                    :mapIndex="mapIndex"
+                    :map-index="mapIndex"
                     :zoom.sync="zoom"
                     @updateCharacter="updateCharacter"
                   />
@@ -186,16 +186,15 @@ export default {
       this[status] = pCharacters
       console.log(pCharacters)
       pCharacters.forEach((character) => {
-        // 生死状態の更新
-        if (status === 'killed') {
-          character.alive = 'KILL'
-          character.useEmergencyButton = true
-        } else if (status === 'hunged') {
-          character.alive = '追放'
-          character.useEmergencyButton = true
-        } else if (status === 'hunged') {
-          character.alive = '生'
-        }
+        // if (status === 'killed') {
+        //   character.alive = 'KILL'
+        //   character.useEmergencyButton = true
+        // } else if (status === 'hunged') {
+        //   character.alive = '追放'
+        //   character.useEmergencyButton = true
+        // } else if (status === 'hunged') {
+        //   character.alive = '生'
+        // }
 
         // ステータスの更新
         if (status === 'gray') {
@@ -208,6 +207,10 @@ export default {
           character.status = 'KILL'
         } else if (status === 'hunged') {
           character.status = '追放'
+        }
+        // useEmergencyButtonの更新
+        if (!character.isAlive) {
+          character.useEmergencyButton = true
         }
       })
     },

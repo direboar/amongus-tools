@@ -100,7 +100,7 @@ export default {
 
   computed: {
     icon() {
-      return this.character.alive === '生'
+      return this.character.isAlive
         ? `/icon/clue/${this.color}.png`
         : `/icon/dead/${this.color}.png`
     },
