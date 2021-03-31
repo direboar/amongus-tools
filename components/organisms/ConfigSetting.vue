@@ -39,18 +39,16 @@
         <v-row>
           <v-col v-for="(mark, i) in marks" :key="i" cols="3">
             <v-card :color="mark.color" dark class="pa-4">
-              <v-container>
-                <v-row>
-                  <v-col cols="8">{{ mark.mark }}</v-col>
-                  <v-col cols="4">
-                    <v-btn
-                      @click="showMarkEditDialog(mark)"
-                      :disabled="!mark.editable"
-                      >編集</v-btn
-                    >
-                  </v-col>
-                </v-row>
-              </v-container>
+              <v-row>
+                <v-col cols="8">{{ mark.mark }}</v-col>
+                <v-col cols="4">
+                  <v-btn
+                    @click="showMarkEditDialog(mark)"
+                    :disabled="!mark.editable"
+                    >編集</v-btn
+                  >
+                </v-col>
+              </v-row>
             </v-card>
           </v-col>
         </v-row>

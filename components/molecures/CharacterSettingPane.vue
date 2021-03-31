@@ -11,11 +11,17 @@
             class="text-field"
             label="名前"
             required
+            dense
             @blur="onBlur"
           ></v-text-field>
         </v-col>
         <v-col cols="2">
-          <v-checkbox v-model="join" color="red" hide-details></v-checkbox>
+          <v-checkbox
+            dense
+            v-model="join"
+            color="red"
+            hide-details
+          ></v-checkbox>
         </v-col>
       </v-row>
     </v-container>
