@@ -40,7 +40,7 @@
         <v-row> <v-divider /> </v-row>
         <v-row> <v-subheader>クルーの設定</v-subheader> </v-row>
         <v-row>
-          <v-col v-for="(character, i) in characters" :key="i" cols="4">
+          <v-col v-for="(character, i) in characters" :key="i" cols="3">
             <character-setting-pane
               :character="character"
               @updateCharacter="updateCharacter"

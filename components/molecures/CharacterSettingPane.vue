@@ -2,20 +2,21 @@
   <v-sheet>
     <v-container v-if="character">
       <v-row align="center">
-        <clue-icon :src="character.iconUrl" />
-        <v-text-field
-          v-model="name"
-          class="text-field"
-          label="名前"
-          required
-          @blur="onBlur"
-        ></v-text-field>
-        <v-checkbox
-          v-model="join"
-          label="参加"
-          color="red"
-          hide-details
-        ></v-checkbox>
+        <v-col cols="2">
+          <clue-icon :src="character.iconUrl" />
+        </v-col>
+        <v-col cols="8">
+          <v-text-field
+            v-model="name"
+            class="text-field"
+            label="名前"
+            required
+            @blur="onBlur"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="2">
+          <v-checkbox v-model="join" color="red" hide-details></v-checkbox>
+        </v-col>
       </v-row>
     </v-container>
   </v-sheet>
