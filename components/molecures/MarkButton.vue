@@ -14,21 +14,15 @@ export default {
   props: {
     mark: {
       type: String,
+      marks: Object,
     },
+    marks: Array,
   },
 
   computed: {
     color() {
-      if (this.mark === '◎') {
-        return 'light-blue  darken-2'
-      } else if (this.mark === '〇') {
-        return 'green darken-3'
-      } else if (this.mark === '―') {
-        return 'brown darken-3'
-      } else if (this.mark === '✕') {
-        return 'red darken-4'
-      }
-      return ''
+      const mark = this.marks.find((mark) => mark.mark === this.mark)
+      return mark ? mark.color : ''
     },
     buttonname() {
       return this.mark
@@ -37,15 +31,22 @@ export default {
   watch: {},
   methods: {
     click() {
-      if (this.mark === '―') {
-        this.$emit('update:mark', '◎')
-      } else if (this.mark === '◎') {
-        this.$emit('update:mark', '〇')
-      } else if (this.mark === '〇') {
-        this.$emit('update:mark', '✕')
-      } else if (this.mark === '✕') {
-        this.$emit('update:mark', '―')
+      let mark = null
+      const current = this.find(this.mark)
+      if (current) {
+        const index = this.marks.indexOf(current)
+        if (index + 1 >= this.marks.length) {
+          mark = this.marks[0].mark
+        } else {
+          mark = this.marks[index + 1].mark
+        }
       }
+      if (mark) {
+        this.$emit('update:mark', mark)
+      }
+    },
+    find(mark) {
+      return this.marks.find((mark) => mark.mark === this.mark)
     },
   },
 }

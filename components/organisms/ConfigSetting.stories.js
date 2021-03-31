@@ -10,7 +10,8 @@ export const NuxtWebsite = () => ({
   components: {
     ConfigSetting,
   },
-  template: '<v-app><ConfigSetting :characters="characters"/></v-app>',
+  template:
+    '<v-app><ConfigSetting :characters="characters" :marks="marks" @updateMarks = "updateMarks"/></v-app>',
   data() {
     return {
       characters: [
@@ -26,14 +27,17 @@ export const NuxtWebsite = () => ({
         new Character('white', 'shiromedaka'),
         new Character('yellow', 'GAU'),
       ],
-      // maybeClue: [],
-      // maybeImpostor: [],
-      // killed: [],
-      // hunged: [],
+      marks: [
+        { mark: '―', color: 'brown darken-3', editable: false },
+        { mark: '◎', color: 'light-blue  darken-2', editable: true },
+        { mark: '〇', color: 'green darken-3', editable: true },
+        { mark: '✕', color: 'red darken-4', editable: true },
+      ],
     }
   },
   methods: {
-    // editNewItem: action('editNewItem'),
-    // reload: action('reload'),
+    updateMarks(marks) {
+      this.marks = marks
+    },
   },
 })

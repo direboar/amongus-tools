@@ -27,7 +27,7 @@
             />
           </td>
           <td>
-            <mark-button :mark.sync="character.mark" />
+            <mark-button :marks="marks" :mark.sync="character.mark" />
           </td>
         </tr>
       </tbody>
@@ -75,6 +75,7 @@ export default {
   },
   props: {
     characters: Array,
+    marks: Array,
   },
   data() {
     return {

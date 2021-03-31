@@ -37,6 +37,8 @@
             <setting-persistent-button :index="2" @save="save" @load="load" />
           </v-col>
         </v-row>
+        <v-row> <v-divider /> </v-row>
+        <v-row> <v-subheader>クルーの設定</v-subheader> </v-row>
         <v-row>
           <v-col v-for="(character, i) in characters" :key="i" cols="4">
             <character-setting-pane
@@ -45,7 +47,34 @@
             />
           </v-col>
         </v-row>
+        <v-row> <v-divider /> </v-row>
+        <v-row> <v-subheader>マークの設定</v-subheader> </v-row>
+        <v-row>
+          <v-col v-for="(mark, i) in marks" :key="i" cols="3">
+            <v-card :color="mark.color" dark class="pa-4">
+              <v-container>
+                <v-row>
+                  <v-col cols="8">{{ mark.mark }}</v-col>
+                  <v-col cols="4">
+                    <v-btn
+                      @click="showMarkEditDialog(mark)"
+                      :disabled="!mark.editable"
+                      >編集</v-btn
+                    >
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-container>
+      <v-dialog v-model="dialog" width="500">
+        <mark-edit-dialog
+          :mark="editedMark"
+          @updateMark="updateMark"
+          @closeDialog="closeDialog"
+        />
+      </v-dialog>
     </v-card>
   </div>
 </template>
@@ -55,11 +84,13 @@
 <script>
 import CharacterSettingPane from '~/components/molecures/CharacterSettingPane'
 import SettingPersistentButton from '~/components/molecures/SettingPersistentButton'
+import MarkEditDialog from '~/components/molecures/MarkEditDialog'
 
 export default {
   components: {
     CharacterSettingPane,
     SettingPersistentButton,
+    MarkEditDialog,
   },
   props: {
     characters: Array,
@@ -67,10 +98,13 @@ export default {
       type: String,
       default: '/map/skeld.png',
     },
+    marks: Array,
   },
   data() {
     return {
-      showDialog: false,
+      dialog: false,
+      value: '',
+      editedMark: null,
     }
   },
   computed: {
@@ -84,6 +118,10 @@ export default {
     },
   },
   methods: {
+    showMarkEditDialog(mark) {
+      this.editedMark = mark
+      this.dialog = true
+    },
     resetSetting() {
       this.$emit('resetSetting')
     },
@@ -95,6 +133,17 @@ export default {
     },
     updateCharacter(character) {
       this.$emit('updateCharacter', character)
+    },
+    closeDialog() {
+      this.dialog = false
+    },
+    updateMark(mark) {
+      const marks = Array.from(this.marks)
+      const index = marks.indexOf(this.editedMark)
+      marks[index] = mark
+      // this.editedMark = mark
+      // console.log(this.editedMark)
+      this.$emit('updateMarks', marks)
     },
   },
 }

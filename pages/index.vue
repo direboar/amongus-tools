@@ -48,6 +48,7 @@
             <v-col cols="6">
               <character-status-table
                 :characters="characters"
+                :marks="marks"
                 @updateCharacter="updateCharacter"
               />
             </v-col>
@@ -80,11 +81,13 @@
       <v-tab-item>
         <config-setting
           :characters="characters"
+          :marks.sync="marks"
           :map.sync="map"
           @resetSetting="resetSetting"
           @saveSetting="saveSetting"
           @loadSetting="loadSetting"
           @updateCharacter="updateCharacter"
+          @updateMarks="updateMarks"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -130,6 +133,12 @@ export default {
       map: '/map/skeld.png',
       mapIndex: 0,
       zoom: false,
+      marks: [
+        { mark: '―', color: '#5C473BF1', editable: false },
+        { mark: '◎', color: '#418EF3BF', editable: true },
+        { mark: '〇', color: '#03AA28D9', editable: true },
+        { mark: '✕', color: '#AC1F08FF', editable: true },
+      ],
     }
   },
   mounted() {
@@ -235,9 +244,13 @@ export default {
     },
     saveSetting(index) {
       try {
+        const config = {
+          characters: this.characters,
+          marks: this.marks,
+        }
         localStorage.setItem(
           `amongus-memo-tools.settings.${index}`,
-          JSON.stringify(this.characters)
+          JSON.stringify(config)
         )
         this.showSnackbar('success', '設定をセーブしました')
       } catch (e) {
@@ -252,7 +265,8 @@ export default {
         )
         if (loaded) {
           const objects = JSON.parse(loaded)
-          this.characters = Character.assigns(objects)
+          this.characters = Character.assigns(objects.characters)
+          this.marks = objects.marks
           this.resetCharacterStatusArea()
           this.initPosition()
           this.showSnackbar('success', '設定をロードしました')
@@ -261,7 +275,7 @@ export default {
         }
       } catch (e) {
         this.showSnackbar('error', '設定のロードに失敗しました')
-        console.err(e)
+        console.error(e)
       }
     },
     initPosition() {
@@ -281,6 +295,9 @@ export default {
       this.snackbar.color = color
       this.snackbar.message = message
       this.snackbar.show = true
+    },
+    updateMarks(marks) {
+      this.marks = marks
     },
   },
 }
