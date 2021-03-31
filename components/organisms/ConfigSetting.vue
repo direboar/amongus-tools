@@ -8,28 +8,15 @@
               >クルーの設定をリセットする</v-btn
             ></v-col
           >
-          <v-row>
-            <v-col cols="3">
-              Map
-              <v-radio-group v-model="mapUrl">
-                <v-radio
-                  label="skeld"
-                  color="red"
-                  value="/map/skeld.png"
-                ></v-radio>
-                <v-radio
-                  label="polus"
-                  color="red"
-                  value="/map/polus.png"
-                ></v-radio>
-                <v-radio
-                  label="mirahq"
-                  color="red"
-                  value="/map/mirahq.png"
-                ></v-radio>
-              </v-radio-group>
-            </v-col>
-          </v-row>
+          <v-col cols="3">
+            <v-select
+              dense
+              v-model="mapUrl"
+              :items="mapUrls"
+              filled
+              label="Map"
+            ></v-select>
+          </v-col>
           <v-col cols="3">
             <setting-persistent-button :index="1" @save="save" @load="load" />
           </v-col>
@@ -105,6 +92,11 @@ export default {
       dialog: false,
       value: '',
       editedMark: null,
+      mapUrls: [
+        { text: 'skeld', value: '/map/skeld.png' },
+        { text: 'polus', value: '/map/polus.png' },
+        { text: 'mirahq', value: '/map/mirahq.png' },
+      ],
     }
   },
   computed: {
