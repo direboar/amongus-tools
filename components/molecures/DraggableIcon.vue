@@ -13,6 +13,9 @@
       <div v-if="this.status !== ''" class="right-box">
         <img :src="status" class="status-image" />
       </div>
+      <div class="name-box">
+        {{ characterName }}
+      </div>
     </div>
   </moveable>
 </template>
@@ -36,6 +39,15 @@
   position: absolute;
   bottom: 0;
   right: 0;
+}
+.name-box {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 800;
+  color: red;
+  /* margin: 20px;
+  padding: 20px; */
+  /* bottom: 10%; */
 }
 .status-image {
   height: 30px;

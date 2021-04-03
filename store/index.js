@@ -1,19 +1,19 @@
-// export const state = () => ({
-//   peer: {},
-//   room: {},
-// })
-
-// export const mutations = {
-//   // ---編集するItemの情報を指定する ---//
-//   setPeer(state, peer) {
-//     console.log(state)
-//     console.log(peer)
-//     state.peer = peer
-//   },
-//   setRoom(state, room) {
-//     state.room = room
-//   },
-// }
+export const state = () => ({
+  names: {
+    black: 'black',
+    blue: 'blue',
+    brown: 'brown',
+    green: 'green',
+    lime: 'lime',
+    orange: 'orange',
+    pink: 'pink',
+    purple: 'purple',
+    red: 'red',
+    skyblue: 'skyblue',
+    white: 'white',
+    yellow: 'yellow',
+  },
+})
 
 // export const actions = {
 //   registerIcon({ commit }, { id, position }) {
