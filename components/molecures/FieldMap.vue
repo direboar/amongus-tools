@@ -1,6 +1,36 @@
 <template>
   <div>
-    <div class="waitingroom" />
+    <v-app-bar>
+      <div class="waitingroom" />
+      <v-spacer></v-spacer>
+      <map-select-button
+        :map-index="0"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="1"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="2"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="3"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="4"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <v-divider class="mx-4" vertical></v-divider>
+      <v-btn color="blue darken-1" @click="close"> 閉じる</v-btn>
+    </v-app-bar>
     <div class="battlearea">
       <component
         :is="component.componentClass"
@@ -39,10 +69,12 @@ import Vue from 'vue'
 
 import DraggableIcon from './DraggableIcon'
 import Character from '~/domain/character'
+import MapSelectButton from '~/components/molecures/MapSelectButton'
 
 export default {
   components: {
     DraggableIcon,
+    MapSelectButton,
   },
   props: {
     src: {
@@ -56,7 +88,7 @@ export default {
     },
     width: {
       type: String,
-      default: '50vw',
+      default: '100vw',
     },
   },
   data() {
@@ -132,6 +164,12 @@ export default {
       character.position[this.mapIndex] = position
       // console.log(character)
       this.$emit('updateCharacter', character)
+    },
+    updateMapIndex(index) {
+      this.$emit('updateMapIndex', index)
+    },
+    close() {
+      this.$emit('close')
     },
   },
 }
