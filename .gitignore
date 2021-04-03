@@ -88,3 +88,10 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# nuxt-storybook
+.nuxt-storybook
+storybook-static
+
+# nuxt/pwa
+sw.*

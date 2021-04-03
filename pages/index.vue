@@ -1,93 +1,304 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-card>
+    <v-app-bar dense>
+      <v-tabs v-model="tab">
+        <v-tab>
+          <v-icon left> mdi-account </v-icon>
+          メイン
+        </v-tab>
+        <v-tab>
+          <v-icon left> mdi-access-point </v-icon>
+          設定
+        </v-tab>
+      </v-tabs>
+      <v-btn color="light-blue darken-3" @click="startGame">開始</v-btn>
+      <v-divider class="mx-4" vertical></v-divider>
+      <map-select-button
+        :map-index="0"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="1"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="2"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="3"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <map-select-button
+        :map-index="4"
+        :current-index="mapIndex"
+        @updateMapIndex="updateMapIndex"
+      />
+      <v-divider class="mx-4" vertical></v-divider>
+      <v-btn color="brown darken-3" @click="zoom = true">地図拡大</v-btn>
+    </v-app-bar>
+    <v-tabs-items v-model="tab" :touchless="true">
+      <v-tab-item>
+        <v-card>
+          <v-row>
+            <v-col cols="6">
+              <character-status-table
+                :characters="characters"
+                :marks="marks"
+                @updateCharacter="updateCharacter"
+              />
+            </v-col>
+            <v-col cols="6">
+              <v-row>
+                <v-col cols="12">
+                  <zoomable-map
+                    :src="map"
+                    :characters="characters"
+                    :map-index="mapIndex"
+                    :zoom.sync="zoom"
+                    @updateCharacter="updateCharacter"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <character-classify-area
+                    :gray="gray"
+                    :maybe-clue="maybeClue"
+                    :maybe-impostor="maybeImpostor"
+                    :killed="killed"
+                    :hunged="hunged"
+                    @updateCharacters="updateCharacterStatus"
+                  />
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <config-setting
+          :characters="characters"
+          :marks.sync="marks"
+          :map.sync="map"
+          @resetSetting="resetSetting"
+          @saveSetting="saveSetting"
+          @loadSetting="loadSetting"
+          @updateCharacter="updateCharacter"
+          @updateMarks="updateMarks"
+        />
+      </v-tab-item>
+    </v-tabs-items>
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" top>
+      {{ snackbar.message }}
+    </v-snackbar>
+  </v-card>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import CharacterStatusTable from '~/components/organisms/CharacterStatusTable'
+import ConfigSetting from '~/components/organisms/ConfigSetting'
+
+import Character from '~/domain/character'
+import CharacterClassifyArea from '~/components/organisms/CharacterClassifyArea.vue'
+import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
+// import FieldMap from '~/components/molecures/FieldMap'
+import MapSelectButton from '~/components/molecures/MapSelectButton'
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo,
+    CharacterStatusTable,
+    ConfigSetting,
+    CharacterClassifyArea,
+    // FieldMap,
+    ZoomableMap,
+    MapSelectButton,
+  },
+  data() {
+    return {
+      tab: null,
+      characters: this.createClues(),
+      gray: [],
+      maybeClue: [],
+      maybeImpostor: [],
+      killed: [],
+      hunged: [],
+      snackbar: {
+        show: false,
+        message: '',
+        color: 'success',
+      },
+      map: '/map/skeld.png',
+      mapIndex: 0,
+      zoom: false,
+      marks: [
+        { mark: '―', color: '#5C473BF1', editable: false },
+        { mark: '◎', color: '#418EF3BF', editable: true },
+        { mark: '〇', color: '#03AA28D9', editable: true },
+        { mark: '✕', color: '#AC1F08FF', editable: true },
+      ],
+    }
+  },
+  mounted() {
+    this.gray = this.characters
+    this.initPosition()
+  },
+  methods: {
+    updateMapIndex(mapIndex) {
+      this.mapIndex = mapIndex
+    },
+    createClues() {
+      return [
+        new Character('black', 'black'),
+        new Character('blue', 'blue'),
+        new Character('brown', 'brown'),
+        new Character('green', 'green'),
+        new Character('lime', 'lime'),
+        new Character('orange', 'orange'),
+        new Character('pink', 'pink'),
+        new Character('purple', 'purple'),
+        new Character('red', 'red'),
+        new Character('skyblue', 'skyblue'),
+        new Character('white', 'white'),
+        new Character('yellow', 'yellow'),
+      ]
+    },
+    startGame() {
+      this.characters.forEach((character) => {
+        character.reset()
+      })
+      this.moveAllChacarctorToGray()
+      this.initPosition()
+    },
+    resetSetting() {
+      this.characters = this.createClues()
+      this.resetCharacterStatusArea()
+      this.initPosition()
+    },
+    updateCharacter(updated) {
+      const found = this.characters.find((c) => {
+        return updated.color === c.color
+      })
+      // キャラクターの追加状態が変更されたか。
+      const joined = found.join !== updated.join
+      if (found) {
+        Object.assign(found, updated)
+      }
+      // キャラクターが追加された場合は、地図上の表示位置を初期化する。
+      if (joined) {
+        this.initPosition()
+      }
+    },
+    updateCharacterStatus(status, pCharacters) {
+      this[status] = pCharacters
+      console.log(pCharacters)
+      pCharacters.forEach((character) => {
+        // if (status === 'killed') {
+        //   character.alive = 'KILL'
+        //   character.useEmergencyButton = true
+        // } else if (status === 'hunged') {
+        //   character.alive = '追放'
+        //   character.useEmergencyButton = true
+        // } else if (status === 'hunged') {
+        //   character.alive = '生'
+        // }
+
+        // ステータスの更新
+        if (status === 'gray') {
+          character.status = 'グレー'
+        } else if (status === 'maybeImpostor') {
+          character.status = '怪しい'
+        } else if (status === 'maybeClue') {
+          character.status = '白目'
+        } else if (status === 'killed') {
+          character.status = 'KILL'
+        } else if (status === 'hunged') {
+          character.status = '追放'
+        }
+        // useEmergencyButtonの更新
+        if (!character.isAlive) {
+          character.useEmergencyButton = true
+        }
+      })
+    },
+    moveAllChacarctorToGray() {
+      const move = (chars) => {
+        chars.forEach((c) => {
+          this.gray.push(c)
+        })
+        return []
+      }
+      this.maybeClue = move(this.maybeClue)
+      this.maybeImpostor = move(this.maybeImpostor)
+      this.killed = move(this.killed)
+      this.hunged = move(this.hunged)
+    },
+    resetCharacterStatusArea() {
+      this.gray = this.characters
+      this.maybeClue = []
+      this.maybeImpostor = []
+      this.killed = []
+      this.hunged = []
+    },
+    saveSetting(index) {
+      try {
+        const config = {
+          characters: this.characters,
+          marks: this.marks,
+        }
+        localStorage.setItem(
+          `amongus-memo-tools.settings.${index}`,
+          JSON.stringify(config)
+        )
+        this.showSnackbar('success', '設定をセーブしました')
+      } catch (e) {
+        this.showSnackbar('error', '設定のセーブに失敗しました')
+        console.err(e)
+      }
+    },
+    loadSetting(index) {
+      try {
+        const loaded = localStorage.getItem(
+          `amongus-memo-tools.settings.${index}`
+        )
+        if (loaded) {
+          const objects = JSON.parse(loaded)
+          this.characters = Character.assigns(objects.characters)
+          this.marks = objects.marks
+          this.resetCharacterStatusArea()
+          this.initPosition()
+          this.showSnackbar('success', '設定をロードしました')
+        } else {
+          this.showSnackbar('success', `設定{index}は保存されていません`)
+        }
+      } catch (e) {
+        this.showSnackbar('error', '設定のロードに失敗しました')
+        console.error(e)
+      }
+    },
+    initPosition() {
+      let x = 0
+      this.characters.forEach((character) => {
+        if (character.join) {
+          character.resetPosition({
+            top: '20px',
+            left: `${x}px`,
+          })
+          x = x + 45
+        }
+      })
+      this.mapIndex = 0
+    },
+    showSnackbar(color, message) {
+      this.snackbar.color = color
+      this.snackbar.message = message
+      this.snackbar.show = true
+    },
+    updateMarks(marks) {
+      this.marks = marks
+    },
   },
 }
 </script>

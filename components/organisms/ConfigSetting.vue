@@ -1,0 +1,140 @@
+<template>
+  <div>
+    <v-card hover rounded>
+      <v-container fluid fill-height>
+        <v-row>
+          <v-col cols="3"
+            ><v-btn @click="resetSetting"
+              >クルーの設定をリセットする</v-btn
+            ></v-col
+          >
+          <v-col cols="3">
+            <v-select
+              dense
+              v-model="mapUrl"
+              :items="mapUrls"
+              filled
+              label="Map"
+            ></v-select>
+          </v-col>
+          <v-col cols="3">
+            <setting-persistent-button :index="1" @save="save" @load="load" />
+          </v-col>
+          <v-col cols="3">
+            <setting-persistent-button :index="2" @save="save" @load="load" />
+          </v-col>
+        </v-row>
+        <v-row> <v-divider /> </v-row>
+        <v-row> <v-subheader>クルーの設定</v-subheader> </v-row>
+        <v-row>
+          <v-col v-for="(character, i) in characters" :key="i" cols="3">
+            <character-setting-pane
+              :character="character"
+              @updateCharacter="updateCharacter"
+            />
+          </v-col>
+        </v-row>
+        <v-row> <v-divider /> </v-row>
+        <v-row> <v-subheader>マークの設定</v-subheader> </v-row>
+        <v-row>
+          <v-col v-for="(mark, i) in marks" :key="i" cols="3">
+            <v-card :color="mark.color" dark class="pa-4">
+              <v-row>
+                <v-col cols="8">{{ mark.mark }}</v-col>
+                <v-col cols="4">
+                  <v-btn
+                    @click="showMarkEditDialog(mark)"
+                    :disabled="!mark.editable"
+                    >編集</v-btn
+                  >
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-dialog v-model="dialog" width="500">
+        <mark-edit-dialog
+          :mark="editedMark"
+          @updateMark="updateMark"
+          @closeDialog="closeDialog"
+        />
+      </v-dialog>
+    </v-card>
+  </div>
+</template>
+
+<style lang="scss" scoped></style>
+
+<script>
+import CharacterSettingPane from '~/components/molecures/CharacterSettingPane'
+import SettingPersistentButton from '~/components/molecures/SettingPersistentButton'
+import MarkEditDialog from '~/components/molecures/MarkEditDialog'
+
+export default {
+  components: {
+    CharacterSettingPane,
+    SettingPersistentButton,
+    MarkEditDialog,
+  },
+  props: {
+    characters: Array,
+    map: {
+      type: String,
+      default: '/map/skeld.png',
+    },
+    marks: Array,
+  },
+  data() {
+    return {
+      dialog: false,
+      value: '',
+      editedMark: null,
+      mapUrls: [
+        { text: 'skeld', value: '/map/skeld.png' },
+        { text: 'polus', value: '/map/polus.png' },
+        { text: 'mirahq', value: '/map/mirahq.png' },
+      ],
+    }
+  },
+  computed: {
+    mapUrl: {
+      get() {
+        return this.map
+      },
+      set(val) {
+        this.$emit('update:map', val)
+      },
+    },
+  },
+  methods: {
+    showMarkEditDialog(mark) {
+      this.editedMark = mark
+      this.dialog = true
+    },
+    resetSetting() {
+      this.$emit('resetSetting')
+    },
+    save(index) {
+      this.$emit('saveSetting', index)
+    },
+    load(index) {
+      this.$emit('loadSetting', index)
+    },
+    updateCharacter(character) {
+      this.$emit('updateCharacter', character)
+    },
+    closeDialog() {
+      this.dialog = false
+    },
+    updateMark(mark) {
+      const marks = Array.from(this.marks)
+      const index = marks.indexOf(this.editedMark)
+      marks[index] = mark
+      // this.editedMark = mark
+      // console.log(this.editedMark)
+      this.$emit('updateMarks', marks)
+    },
+  },
+}
+</script>

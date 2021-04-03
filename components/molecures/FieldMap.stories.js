@@ -1,17 +1,16 @@
-<template>
-  <field-map :characters="characters" src="/map/polus.jpg" />
-</template>
-
-<style></style>
-
-<script>
-import FieldMap from '~/components/molecures/FieldMap'
+// import { action, configureActions } from '@storybook/addon-actions'
+import FieldMap from './FieldMap.vue'
 import Character from '~/domain/character'
 
 export default {
+  title: 'organisms/FieldMap',
+}
+
+export const NuxtWebsite = () => ({
   components: {
     FieldMap,
   },
+  template: '<v-app><FieldMap :characters="characters"/></v-app>',
   data() {
     return {
       characters: [
@@ -22,7 +21,6 @@ export default {
         new Character('lime', 'mojinjp'),
         new Character('orange', 'metaB'),
         new Character('pink', 'PIIINK'),
-        new Character('purple', 'shiromedaka'),
         new Character('red', 'yuusui'),
         new Character('skyblue', 'SKYBLLUE'),
         new Character('white', 'shiromedaka'),
@@ -30,8 +28,8 @@ export default {
       ],
     }
   },
-  mounted() {},
-  beforeDestroy() {},
-  methods: {},
-}
-</script>
+  methods: {
+    // editNewItem: action('editNewItem'),
+    // reload: action('reload'),
+  },
+})

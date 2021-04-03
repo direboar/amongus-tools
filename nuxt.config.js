@@ -26,7 +26,7 @@ export default {
   css: ['@/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['@/plugins/vue-draggable'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,12 +37,16 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    // https://pwa.nuxtjs.org/setup
+    // '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+
+    '@nuxtjs/pwa',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -78,5 +82,29 @@ export default {
   server: {
     host: '0.0.0.0',
     port: 80,
+  },
+
+  storybook: {
+    // Options
+    addons: ['@storybook/addon-controls'],
+    port: 4000,
+  },
+
+  pwa: {
+    manifest: {
+      name: 'AmongUs Tools',
+      lang: 'ja',
+      useWebmanifestExtension: false,
+    },
+  },
+
+  manifest: {
+    name: 'AmongUs Tools',
+    lang: 'ja',
+    useWebmanifestExtension: false,
+  },
+
+  workbox: {
+    // dev: true,
   },
 }
