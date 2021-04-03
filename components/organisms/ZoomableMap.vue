@@ -1,18 +1,29 @@
 <template>
   <div>
     <v-card hover rounded>
-      <v-img :src="src" />
+      <field-map
+        :src="src"
+        :characters="characters"
+        :map-index="mapIndex"
+        :zoom="false"
+        @updateCharacter="updateCharacter"
+        @updateMapIndex="updateMapIndex"
+        @closeDialog="closeDialog"
+        @showDialog="showDialog"
+      />
+      <!-- <v-img :src="src" /> -->
     </v-card>
-    <v-dialog v-model="showDialog" fullscreen>
+    <v-dialog v-model="dialog" fullscreen>
       <v-card>
         <field-map
           :src="src"
           :characters="characters"
           :map-index="mapIndex"
-          width="90vw"
+          :zoom="true"
           @updateCharacter="updateCharacter"
           @updateMapIndex="updateMapIndex"
-          @close="close"
+          @closeDialog="closeDialog"
+          @showDialog="showDialog"
         />
       </v-card>
     </v-dialog>
@@ -35,25 +46,26 @@ export default {
       type: Number,
       default: 0,
     },
-    zoom: {
-      type: Boolean,
-      default: false,
-    },
+    // zoom: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
   data() {
     return {
       touched: false,
+      dialog: false,
     }
   },
   computed: {
-    showDialog: {
-      get() {
-        return this.zoom
-      },
-      set(val) {
-        this.$emit('update:zoom', val)
-      },
-    },
+    // dialog: {
+    //   get() {
+    //     return this.zoom
+    //   },
+    //   set(val) {
+    //     this.$emit('update:zoom', val)
+    //   },
+    // },
   },
   methods: {
     updateCharacter(character) {
@@ -62,8 +74,12 @@ export default {
     updateMapIndex(index) {
       this.$emit('updateMapIndex', index)
     },
-    close() {
-      this.showDialog = false
+    closeDialog() {
+      this.dialog = false
+    },
+    showDialog() {
+      console.log('showDialog')
+      this.dialog = true
     },
   },
 }

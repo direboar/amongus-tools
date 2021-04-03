@@ -1,9 +1,7 @@
 <template>
   <v-app dark>
     <v-main>
-      <v-content>
-        <nuxt />
-      </v-content>
+      <nuxt />
     </v-main>
   </v-app>
 </template>
@@ -13,7 +11,9 @@ import inobounce from 'inobounce'
 
 export default {
   data() {
-    return {}
+    return {
+      // drawer: false,
+    }
   },
   mounted() {
     inobounce.enable()

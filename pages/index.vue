@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-app-bar dense>
+    <v-toolbar floating dense>
       <v-tabs v-model="tab">
         <v-tab>
           <v-icon left> mdi-account </v-icon>
@@ -11,10 +11,9 @@
           設定
         </v-tab>
       </v-tabs>
-      <v-btn color="light-blue darken-3" @click="startGame">開始</v-btn>
       <v-divider class="mx-4" vertical></v-divider>
-      <v-btn color="brown darken-3" @click="zoom = true">地図拡大</v-btn>
-    </v-app-bar>
+      <v-btn color="light-blue darken-3" @click="startGame">開始</v-btn>
+    </v-toolbar>
     <v-tabs-items v-model="tab" :touchless="true">
       <v-tab-item>
         <v-card>
@@ -243,8 +242,8 @@ export default {
       this.characters.forEach((character) => {
         if (character.join) {
           character.resetPosition({
-            top: '20px',
-            left: `${x}px`,
+            top: 20,
+            left: x,
           })
           x = x + 45
         }

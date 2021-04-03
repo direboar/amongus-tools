@@ -1,6 +1,6 @@
 <template>
   <moveable
-    v-if="character.join"
+    v-if="showIcon"
     :style="moveableStyle"
     v-bind="moveable"
     @drag="handleDrag"
@@ -83,13 +83,17 @@ export default {
       type: Number,
       default: 0,
     },
+    zoom: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       lap: 0,
       lastSubmitTime: null,
       moveable: {
-        draggable: true,
+        draggable: this.zoom,
         scalable: false,
         resizable: false,
         warpable: false,
@@ -145,11 +149,29 @@ export default {
         }
 
         if (this.character) {
-          ret.top = this.character.position[this.mapIndex].top
-          ret.left = this.character.position[this.mapIndex].left
+          let top = this.character.position[this.mapIndex].top
+          let left = this.character.position[this.mapIndex].left
+
+          if (!this.zoom) {
+            top = top / 2
+            left = left / 2
+          }
+
+          ret.top = `${top}px`
+          ret.left = `${left}px`
         }
         return ret
       },
+    },
+    showIcon() {
+      console.log(this.character)
+      if (!this.character.join) {
+        return false
+      }
+      if (!this.zoom && this.character.position[this.mapIndex].initPositon) {
+        return false
+      }
+      return true
     },
   },
 
@@ -165,8 +187,8 @@ export default {
     handleDrag({ target, left, top, delta, transform }) {
       if (top > 0 && left > 0) {
         const position = {
-          top: `${top}px`,
-          left: `${left}px`,
+          top,
+          left,
         }
         this.$emit('updatePosition', this.character, position)
       }

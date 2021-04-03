@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar>
+    <v-toolbar>
       <div class="waitingroom" />
       <v-spacer></v-spacer>
       <map-select-button
@@ -29,8 +29,13 @@
         @updateMapIndex="updateMapIndex"
       />
       <v-divider class="mx-4" vertical></v-divider>
-      <v-btn color="blue darken-1" @click="close"> 閉じる</v-btn>
-    </v-app-bar>
+      <v-btn v-if="zoom" color="blue darken-1" @click="closeDialog">
+        閉じる</v-btn
+      >
+      <v-btn v-if="!zoom" color="blue darken-1" @click="showDialog">
+        地図拡大</v-btn
+      >
+    </v-toolbar>
     <div class="battlearea">
       <component
         :is="component.componentClass"
@@ -86,9 +91,9 @@ export default {
       type: Number,
       default: 0,
     },
-    width: {
-      type: String,
-      default: '100vw',
+    zoom: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -120,7 +125,7 @@ export default {
         position: 'relative',
         top: '0px',
         left: '0px',
-        width: this.width,
+        width: this.zoom ? '100vw' : '50vw',
       }
     },
   },
@@ -153,6 +158,7 @@ export default {
           color: character.color,
           character,
           mapIndex: this.mapIndex,
+          zoom: this.zoom,
         },
       }
       this.components.push(component)
@@ -163,13 +169,17 @@ export default {
       Object.assign(updateCharacter, character)
       character.position[this.mapIndex] = position
       // console.log(character)
+      character.initPositon = false
       this.$emit('updateCharacter', character)
     },
     updateMapIndex(index) {
       this.$emit('updateMapIndex', index)
     },
-    close() {
-      this.$emit('close')
+    closeDialog() {
+      this.$emit('closeDialog')
+    },
+    showDialog() {
+      this.$emit('showDialog')
     },
   },
 }

@@ -10,9 +10,10 @@ export default class Character {
     this.mark = '―'
     this.join = true
     this.position = {}
+    this.initPositon = true
     this.resetPosition({
-      top: '0px',
-      left: '0px',
+      top: 0,
+      left: 0,
     })
   }
 
@@ -32,8 +33,8 @@ export default class Character {
     this.status = 'グレー'
     this.mark = '―'
     this.resetPosition({
-      top: '0px',
-      left: '0px',
+      top: 0,
+      left: 0,
     })
   }
 
@@ -48,6 +49,7 @@ export default class Character {
       const copy = {}
       Object.assign(copy, position)
       this.position[i] = copy
+      this.position[i].initPositon = true
     }
   }
 
