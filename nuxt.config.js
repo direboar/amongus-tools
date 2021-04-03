@@ -9,7 +9,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - vuetify-experimental',
+    titleTemplate: '%s - Among Us メモアプリ for タブレット',
     title: 'Among Us メモアプリ for タブレット',
     htmlAttrs: {
       lang: 'ja',
