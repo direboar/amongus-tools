@@ -10,9 +10,9 @@
       <div class="left-box">
         <img :src="icon" class="clue-image" />
       </div>
-      <div v-if="this.status !== ''" class="right-box">
+      <!-- <div v-if="this.status !== ''" class="right-box">
         <img :src="status" class="status-image" />
-      </div>
+      </div> -->
       <!-- <div class="name-box">
         {{ character.name }}
       </div> -->
