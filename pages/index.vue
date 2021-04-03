@@ -193,19 +193,8 @@ export default {
     },
     updateCharacterStatus(status, pCharacters) {
       this[status] = pCharacters
-      console.log(pCharacters)
+      // console.log(pCharacters)
       pCharacters.forEach((character) => {
-        // if (status === 'killed') {
-        //   character.alive = 'KILL'
-        //   character.useEmergencyButton = true
-        // } else if (status === 'hunged') {
-        //   character.alive = '追放'
-        //   character.useEmergencyButton = true
-        // } else if (status === 'hunged') {
-        //   character.alive = '生'
-        // }
-
-        // ステータスの更新
         if (status === 'gray') {
           character.status = 'グレー'
         } else if (status === 'maybeImpostor') {

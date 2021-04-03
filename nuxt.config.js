@@ -10,9 +10,9 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - vuetify-experimental',
-    title: 'vuetify-experimental',
+    title: 'Among Us メモアプリ for タブレット',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
@@ -92,14 +92,14 @@ export default {
 
   pwa: {
     manifest: {
-      name: 'AmongUs Tools',
+      name: 'AmongUs メモアプリ for タブレット',
       lang: 'ja',
       useWebmanifestExtension: false,
     },
   },
 
   manifest: {
-    name: 'AmongUs Tools',
+    name: 'AmongUs メモアプリ for タブレット',
     lang: 'ja',
     useWebmanifestExtension: false,
   },

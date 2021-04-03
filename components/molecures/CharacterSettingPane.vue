@@ -17,8 +17,8 @@
         </v-col>
         <v-col cols="2">
           <v-checkbox
-            dense
             v-model="join"
+            dense
             color="red"
             hide-details
           ></v-checkbox>

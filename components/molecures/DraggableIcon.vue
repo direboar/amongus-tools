@@ -13,9 +13,9 @@
       <div v-if="this.status !== ''" class="right-box">
         <img :src="status" class="status-image" />
       </div>
-      <div class="name-box">
-        {{ characterName }}
-      </div>
+      <!-- <div class="name-box">
+        {{ character.name }}
+      </div> -->
     </div>
   </moveable>
 </template>
