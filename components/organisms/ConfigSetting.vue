@@ -10,8 +10,8 @@
           >
           <v-col cols="3">
             <v-select
-              dense
               v-model="mapUrl"
+              dense
               :items="mapUrls"
               filled
               label="Map"
@@ -43,8 +43,8 @@
                 <v-col cols="8">{{ mark.mark }}</v-col>
                 <v-col cols="4">
                   <v-btn
-                    @click="showMarkEditDialog(mark)"
                     :disabled="!mark.editable"
+                    @click="showMarkEditDialog(mark)"
                     >編集</v-btn
                   >
                 </v-col>
@@ -94,6 +94,7 @@ export default {
         { text: 'skeld', value: '/map/skeld.png' },
         { text: 'polus', value: '/map/polus.png' },
         { text: 'mirahq', value: '/map/mirahq.png' },
+        { text: 'airship', value: '/map/airship.png' },
       ],
     }
   },

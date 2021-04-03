@@ -31,17 +31,17 @@ export default {
   props: {
     mark: Object,
   },
-  watch: {
-    mark(val) {
-      this.editedMark = this.copyMark(val)
-    },
-  },
   data() {
     return {
       editedMark: this.copyMark(this.mark),
     }
   },
   computed: {},
+  watch: {
+    mark(val) {
+      this.editedMark = this.copyMark(val)
+    },
+  },
   methods: {
     copyMark(org) {
       const copy = {}
@@ -49,7 +49,7 @@ export default {
       return copy
     },
     clickAddButton() {
-      console.log(this.editedMark)
+      // console.log(this.editedMark)
       this.$emit('updateMark', this.editedMark)
       this.$emit('closeDialog')
     },

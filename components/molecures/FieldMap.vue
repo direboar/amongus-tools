@@ -130,7 +130,7 @@ export default {
       const updateCharacter = new Character()
       Object.assign(updateCharacter, character)
       character.position[this.mapIndex] = position
-      console.log(character)
+      // console.log(character)
       this.$emit('updateCharacter', character)
     },
   },
