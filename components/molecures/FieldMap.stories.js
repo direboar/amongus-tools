@@ -3,14 +3,15 @@ import FieldMap from './FieldMap.vue'
 import Character from '~/domain/character'
 
 export default {
-  title: 'organisms/FieldMap',
+  title: 'molecures/FieldMap',
 }
 
 export const NuxtWebsite = () => ({
   components: {
     FieldMap,
   },
-  template: '<v-app><FieldMap :characters="characters"/></v-app>',
+  template:
+    '<v-app><FieldMap :characters="characters" :zoom="zoom" :mapIndex="mapIndex" @updateMapIndex="updateMapIndex"/></v-app>',
   data() {
     return {
       characters: [
@@ -26,10 +27,13 @@ export const NuxtWebsite = () => ({
         new Character('white', 'shiromedaka'),
         new Character('yellow', 'GAU'),
       ],
+      zoom: true,
+      mapIndex: 1,
     }
   },
   methods: {
-    // editNewItem: action('editNewItem'),
-    // reload: action('reload'),
+    updateMapIndex(index) {
+      this.mapIndex = index
+    },
   },
 })
