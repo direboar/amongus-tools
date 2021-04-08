@@ -243,7 +243,9 @@ export default {
         if (character.join) {
           character.resetPosition({
             top: 20,
+            absTop: 20,
             left: x,
+            absLeft: x,
           })
           x = x + 45
         }

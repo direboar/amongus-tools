@@ -13,7 +13,9 @@ export default class Character {
     this.initPositon = true
     this.resetPosition({
       top: 0,
+      absTop: 0,
       left: 0,
+      absLeft: 0,
     })
   }
 
@@ -34,7 +36,9 @@ export default class Character {
     this.mark = '―'
     this.resetPosition({
       top: 0,
+      absTop: 0,
       left: 0,
+      absLeft: 0,
     })
   }
 

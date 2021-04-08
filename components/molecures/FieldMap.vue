@@ -44,6 +44,16 @@
         v-bind="component.props"
         @updatePosition="updatePosition"
       ></component>
+      <v-slider
+        v-if="zoom"
+        dense
+        v-model="size"
+        max="100"
+        min="75"
+        append-icon="mdi-magnify-plus-outline"
+        prepend-icon="mdi-magnify-minus-outline"
+        @input="moveSlider"
+      ></v-slider>
       <img :style="screen" :src="src" />
     </div>
   </div>
@@ -117,6 +127,7 @@ export default {
         horizontalGuideline: null,
         verticalGuideline: null,
       },
+      size: 0,
     }
   },
   computed: {
@@ -125,9 +136,19 @@ export default {
         position: 'relative',
         top: '0px',
         left: '0px',
-        width: this.zoom ? '100vw' : '50vw',
+        width: `${this.mapWidth}vw`,
       }
     },
+    mapWidth() {
+      return this.size
+    },
+  },
+  created() {
+    if (this.zoom) {
+      this.size = 100
+    } else {
+      this.size = 50
+    }
   },
   watch: {
     characters(val) {
@@ -159,6 +180,7 @@ export default {
           character,
           mapIndex: this.mapIndex,
           zoom: this.zoom,
+          size: this.size, // FIXME 画面サイズをアイコンと共有する方法。イベントハンドラが必要？
         },
       }
       this.components.push(component)
@@ -180,6 +202,12 @@ export default {
     },
     showDialog() {
       this.$emit('showDialog')
+    },
+    moveSlider() {
+      this.components.forEach((component) => {
+        console.log(`size=${component.props.size}`)
+        component.props.size = this.size
+      })
     },
   },
 }

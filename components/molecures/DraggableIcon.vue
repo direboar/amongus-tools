@@ -87,6 +87,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    size: {
+      type: Number,
+    },
   },
   data() {
     return {
@@ -153,10 +156,9 @@ export default {
           let left = this.character.position[this.mapIndex].left
 
           if (!this.zoom) {
-            top = top / 2
-            left = left / 2
+            top = this.character.position[this.mapIndex].absTop / 2
+            left = this.character.position[this.mapIndex].absLeft / 2
           }
-
           ret.top = `${top}px`
           ret.left = `${left}px`
         }
@@ -175,7 +177,13 @@ export default {
     },
   },
 
-  watch: {},
+  watch: {
+    size(val) {
+      const character = this.character.position[this.mapIndex]
+      character.top = (character.absTop * val) / 100
+      character.left = (character.absLeft * val) / 100
+    },
+  },
 
   beforeMount() {},
   afterMount() {},
@@ -186,9 +194,15 @@ export default {
   methods: {
     handleDrag({ target, left, top, delta, transform }) {
       if (top > 0 && left > 0) {
+        const func = (x, size) => {
+          const alpha = size / 100
+          return (2 * x) / (1 + alpha)
+        }
         const position = {
           top,
+          absTop: func(top, this.size),
           left,
+          absLeft: func(left, this.size),
         }
         this.$emit('updatePosition', this.character, position)
       }
