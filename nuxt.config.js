@@ -46,12 +46,15 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    ['@nuxtjs/google-adsense', {
-      id: 'ca-pub-9097509632200457',
-      // pageLevelAds: true,
-      // analyticsUacct: 'UA-########',
-      // analyticsDomainName: 'example.com'
-    }]
+    [
+      '@nuxtjs/google-adsense',
+      {
+        id: 'ca-pub-9097509632200457',
+        // pageLevelAds: true,
+        // analyticsUacct: 'UA-########',
+        // analyticsDomainName: 'example.com'
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
