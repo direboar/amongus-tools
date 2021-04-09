@@ -29,7 +29,9 @@
               ></iframe>
             </v-card>
           </v-col>
-          <v-col cols="4"> </v-col>
+          <v-col cols="4">
+            <adsbygoogle ad-slot="5862743108" />
+          </v-col>
         </v-row>
         <v-row
           ><v-col cols="8"></v-col>
@@ -49,6 +51,13 @@ export default {
   data: () => ({
     dialog: true,
   }),
+  mounted() {
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') {
+        this.dialog = true
+      }
+    })
+  },
   computed: {
     height() {
       const breakpoint = this.$vuetify.breakpoint.name
