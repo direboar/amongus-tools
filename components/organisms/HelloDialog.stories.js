@@ -11,8 +11,7 @@ export const NuxtWebsite = () => ({
   },
   template: '<v-app><HelloDialog/></v-app>',
   data() {
-    return {
-    }
+    return {}
   },
   methods: {},
 })
