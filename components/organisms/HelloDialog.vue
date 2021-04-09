@@ -52,7 +52,7 @@ export default {
     dialog: true,
   }),
   mounted() {
-    document.addEventListener('visibilitychange', function () {
+    document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
         this.dialog = true
       }
