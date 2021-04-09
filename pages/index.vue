@@ -68,6 +68,7 @@
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" top>
       {{ snackbar.message }}
     </v-snackbar>
+    <hello-dialog />
   </v-card>
 </template>
 
@@ -79,12 +80,15 @@ import Character from '~/domain/character'
 import CharacterClassifyArea from '~/components/organisms/CharacterClassifyArea.vue'
 import ZoomableMap from '~/components/organisms/ZoomableMap.vue'
 
+import HelloDialog from '~/components/organisms/HelloDialog.vue'
+
 export default {
   components: {
     CharacterStatusTable,
     ConfigSetting,
     CharacterClassifyArea,
     ZoomableMap,
+    HelloDialog,
   },
   data() {
     return {
