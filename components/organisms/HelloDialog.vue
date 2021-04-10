@@ -47,6 +47,9 @@
 </template>
 
 <script>
+// import moment from 'moment'
+import moment from 'moment'
+
 export default {
   data: () => ({
     dialog: true,
@@ -70,12 +73,38 @@ export default {
       }
     },
   },
+  watch: {
+    dialog(val) {
+      if (val) {
+        localStorage.setItem(
+          'amongus-memo-tools.dialog.lastDisplayTime',
+          moment().format()
+        )
+      }
+    },
+  },
   mounted() {
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
-        this.dialog = true
+        this.displayMe()
       }
     })
+  },
+  methods: {
+    displayMe() {
+      const lastDisplayTime = localStorage.getItem(
+        'amongus-memo-tools.dialog.lastDisplayTime'
+      )
+      if (lastDisplayTime) {
+        const now = moment()
+        const last = moment(lastDisplayTime)
+        if (now.isAfter(last, 'day')) {
+          this.dialog = true
+        }
+      } else {
+        this.dialog = true
+      }
+    },
   },
 }
 </script>
