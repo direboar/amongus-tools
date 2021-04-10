@@ -75,7 +75,7 @@ export default {
   },
   watch: {
     dialog(val) {
-      if (val) {
+      if (!val) {
         localStorage.setItem(
           'amongus-memo-tools.dialog.lastDisplayTime',
           moment().format()
