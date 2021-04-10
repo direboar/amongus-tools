@@ -1,8 +1,8 @@
 <template>
   <v-dialog
+    v-model="dialog"
     fullscreen
     hide-overlay
-    v-model="dialog"
     transition="dialog-bottom-transition"
   >
     <v-card color="black">
@@ -51,13 +51,6 @@ export default {
   data: () => ({
     dialog: true,
   }),
-  mounted() {
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        this.dialog = true
-      }
-    })
-  },
   computed: {
     height() {
       const breakpoint = this.$vuetify.breakpoint.name
@@ -71,11 +64,18 @@ export default {
       } else if (breakpoint === 'md') {
         return '400'
       } else if (breakpoint === 'lg') {
-        return '600'
+        return '550'
       } else {
-        return '800'
+        return '700'
       }
     },
+  },
+  mounted() {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        this.dialog = true
+      }
+    })
   },
 }
 </script>

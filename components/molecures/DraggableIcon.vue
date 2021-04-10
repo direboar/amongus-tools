@@ -70,7 +70,6 @@
 </style>
 
 <script>
-import { v4 as uuidv4 } from 'uuid'
 import Moveable from 'vue-moveable'
 export default {
   components: {
@@ -113,7 +112,6 @@ export default {
         horizontalGuideline: null,
         verticalGuideline: null,
       },
-      id: uuidv4(),
     }
   },
 
@@ -195,8 +193,9 @@ export default {
     handleDrag({ target, left, top, delta, transform }) {
       if (top > 0 && left > 0) {
         const func = (x, size) => {
-          const alpha = size / 100
-          return (2 * x) / (1 + alpha)
+          // const alpha = size / 100
+          // return (2 * x) / (1 + alpha)
+          return (x * 100) / size
         }
         const position = {
           top,

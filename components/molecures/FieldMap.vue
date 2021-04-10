@@ -46,8 +46,8 @@
       ></component>
       <v-slider
         v-if="zoom"
-        dense
         v-model="size"
+        dense
         max="100"
         min="75"
         append-icon="mdi-magnify-plus-outline"
@@ -143,13 +143,6 @@ export default {
       return this.size
     },
   },
-  created() {
-    if (this.zoom) {
-      this.size = 100
-    } else {
-      this.size = 50
-    }
-  },
   watch: {
     characters(val) {
       this.createIcons()
@@ -157,6 +150,13 @@ export default {
     mapIndex(val) {
       this.createIcons()
     },
+  },
+  created() {
+    if (this.zoom) {
+      this.size = 100
+    } else {
+      this.size = 50
+    }
   },
   mounted() {
     this.createIcons()

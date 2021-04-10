@@ -1,8 +1,8 @@
 <template>
   <v-dialog
+    v-model="dialog"
     fullscreen
     hide-overlay
-    v-model="dialog"
     transition="dialog-bottom-transition"
   >
     <v-card height="800" color="black">
