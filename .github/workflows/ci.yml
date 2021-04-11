@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - master
-      - prototype
+      - deploy-github-page
   pull_request:
     branches:
       - main
