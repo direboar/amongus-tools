@@ -6,11 +6,7 @@
     transition="dialog-bottom-transition"
   >
     <v-card color="black">
-      <v-card-title
-        >Among Us メモアプリ for タブレット{{
-          this.$vuetify.breakpoint.name
-        }}</v-card-title
-      >
+      <v-card-title>Among Us メモアプリ for タブレット</v-card-title>
       <v-card-text
         >アプリの利用方法は、以下の動画を参照してください</v-card-text
       >
