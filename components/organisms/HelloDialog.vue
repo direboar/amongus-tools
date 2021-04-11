@@ -27,7 +27,6 @@
           </v-col>
           <v-col cols="4">
             <adsbygoogle ad-slot="5862743108" />
-            <adsbygoogle ad-slot="5862743108" />
           </v-col>
         </v-row>
         <v-row
