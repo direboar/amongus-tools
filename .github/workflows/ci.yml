@@ -53,5 +53,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
-          BRANCH: gh-pages 
+          repository-name : amongus-memo
+          BRANCH: master 
           FOLDER: dist 
