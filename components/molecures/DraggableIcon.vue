@@ -118,8 +118,8 @@ export default {
   computed: {
     icon() {
       return this.character.isAlive
-        ? `/icon/clue/${this.color}.png`
-        : `/icon/dead/${this.color}.png`
+        ? `./icon/clue/${this.color}.png`
+        : `./icon/dead/${this.color}.png`
     },
     status() {
       const status = this.character.status

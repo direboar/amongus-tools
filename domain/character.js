@@ -25,8 +25,8 @@ export default class Character {
 
   get iconUrl() {
     return this.isAlive
-      ? `/icon/clue/${this.color}.png`
-      : `/icon/dead/${this.color}.png`
+      ? `./icon/clue/${this.color}.png`
+      : `./icon/dead/${this.color}.png`
   }
 
   reset() {

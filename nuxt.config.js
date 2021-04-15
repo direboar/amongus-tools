@@ -19,7 +19,9 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/amongus-tools/favicon.ico' },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -81,7 +83,7 @@ export default {
 
   router: {
     // // see https://nuxtjs.org/docs/2.x/deployment/github-pages
-    // base: '/amongus-tools/',
+    base: '/amongus-tools/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
