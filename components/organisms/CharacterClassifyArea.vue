@@ -4,30 +4,35 @@
       title="グレー"
       :characters="gray"
       color="blue-grey lighten-1"
+      :size="size"
       @updateCharacters="updateCharacters(`gray`, $event)"
     />
     <character-classify-card
       title="怪しい"
       :characters="maybeImpostor"
       color="blue-grey darken-1"
+      :size="size"
       @updateCharacters="updateCharacters(`maybeImpostor`, $event)"
     />
     <character-classify-card
       title="白め"
       :characters="maybeClue"
       color="light-blue lighten-3"
+      :size="size"
       @updateCharacters="updateCharacters(`maybeClue`, $event)"
     />
     <character-classify-card
       title="KILL"
       :characters="killed"
       color="red darken-4"
+      :size="size"
       @updateCharacters="updateCharacters(`killed`, $event)"
     />
     <character-classify-card
       title="追放"
       :characters="hunged"
       color="light-blue brown darken-2"
+      :size="size"
       @updateCharacters="updateCharacters(`hunged`, $event)"
     />
   </v-card>
@@ -48,6 +53,10 @@ export default {
     maybeImpostor: Array,
     killed: Array,
     hunged: Array,
+    size: {
+      type: String,
+      default: 'default',
+    },
   },
   data() {
     return {}

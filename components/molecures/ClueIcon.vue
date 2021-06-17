@@ -1,12 +1,12 @@
 <template>
   <span :style="span">
-    <img class="clue-image" :src="src" />
+    <img :style="clueImage" :src="src" />
   </span>
 </template>
 
 <style scoped>
 .clue-image {
-  width: 30px;
+  width: 19px;
 }
 </style>
 
@@ -17,6 +17,10 @@ export default {
     src: {
       type: String,
       default: '/icon/clue/blue.png',
+    },
+    size: {
+      type: String,
+      default: 'default',
     },
   },
   data() {
@@ -41,6 +45,15 @@ export default {
         span['padding-bottom'] = '7px'
       }
       return span
+    },
+    clueImage() {
+      console.log(this.size)
+      return {
+        width: this.size === 'default' ? '30px' : '23px',
+      }
+      // return {
+      //   width: this.size === 'default' ? '25px' : '19px',
+      // }
     },
   },
   methods: {},

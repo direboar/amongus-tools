@@ -28,7 +28,11 @@
   </v-sheet>
 </template>
 
-<style scoped></style>
+<style scoped>
+.text-field {
+  height: 10px;
+}
+</style>
 
 <script>
 import Character from '~/domain/character'
