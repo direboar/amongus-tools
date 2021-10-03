@@ -78,8 +78,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped></style>
-
 <script>
 import CharacterSettingPane from '~/components/molecures/CharacterSettingPane'
 import SettingPersistentButton from '~/components/molecures/SettingPersistentButton'
@@ -114,7 +112,7 @@ export default {
         { text: 'mirahq', value: '/map/mirahq.png' },
         { text: 'airship', value: '/map/airship.png' },
       ],
-      panel: null,
+      panel: 0,
       displaySizes: [
         { text: '10人用', value: 'default' },
         { text: '15人用', value: 'small' },
@@ -170,3 +168,5 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped></style>

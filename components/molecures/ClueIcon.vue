@@ -4,12 +4,6 @@
   </span>
 </template>
 
-<style scoped>
-.clue-image {
-  width: 19px;
-}
-</style>
-
 <script>
 export default {
   props: {
@@ -39,23 +33,20 @@ export default {
         'padding-top': '0px',
         display: 'inline-block',
       }
-      const isDead = this.src.includes('dead')
-      if (isDead) {
-        span['padding-top'] = '7px'
-        span['padding-bottom'] = '7px'
-      }
       return span
     },
     clueImage() {
-      console.log(this.size)
       return {
-        width: this.size === 'default' ? '30px' : '23px',
+        width: this.size === 'default' ? '42px' : '35px',
       }
-      // return {
-      //   width: this.size === 'default' ? '25px' : '19px',
-      // }
     },
   },
   methods: {},
 }
 </script>
+
+<style scoped>
+.clue-image {
+  width: 19px;
+}
+</style>

@@ -1,5 +1,5 @@
 export default class Character {
-  constructor(color, name = '登録してください') {
+  constructor(color, name = '登録してください', join = true) {
     // 色
     this.color = color
     // 名前
@@ -8,7 +8,7 @@ export default class Character {
     this.useEmergencyButton = false
     this.status = 'グレー'
     this.mark = '―'
-    this.join = true
+    this.join = join
     this.position = {}
     this.initPositon = true
     this.resetPosition({

@@ -55,7 +55,7 @@
   /* height: 50px; */
 }
 .clue-image {
-  width: 50px;
+  width: 65px;
   /* float: left; */
   /* height: 50px; */
 }
