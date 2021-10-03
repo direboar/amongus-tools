@@ -107,7 +107,7 @@ export default {
         message: '',
         color: 'success',
       },
-      map: '/map/skeld.png',
+      map: './map/skeld.png',
       mapIndex: 0,
       zoom: false,
       marks: [

@@ -107,10 +107,10 @@ export default {
       value: '',
       editedMark: null,
       mapUrls: [
-        { text: 'skeld', value: '/map/skeld.png' },
-        { text: 'polus', value: '/map/polus.png' },
-        { text: 'mirahq', value: '/map/mirahq.png' },
-        { text: 'airship', value: '/map/airship.png' },
+        { text: 'skeld', value: './map/skeld.png' },
+        { text: 'polus', value: './map/polus.png' },
+        { text: 'mirahq', value: './map/mirahq.png' },
+        { text: 'airship', value: './map/airship.png' },
       ],
       panel: 0,
       displaySizes: [
