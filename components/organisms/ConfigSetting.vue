@@ -3,12 +3,17 @@
     <v-card hover rounded>
       <v-container fluid fill-height>
         <v-row>
-          <v-col cols="3"
-            ><v-btn @click="resetSetting"
-              >クルーの設定をリセットする</v-btn
-            ></v-col
-          >
-          <v-col cols="3">
+          <v-col cols="2"><v-btn @click="resetSetting">リセット</v-btn></v-col>
+          <v-col cols="2">
+            <v-select
+              v-model="displaySize"
+              dense
+              :items="displaySizes"
+              filled
+              label="表示サイズ(Tablet)"
+            ></v-select>
+          </v-col>
+          <v-col cols="2">
             <v-select
               v-model="mapUrl"
               dense
@@ -25,33 +30,42 @@
           </v-col>
         </v-row>
         <v-row> <v-divider /> </v-row>
-        <v-row> <v-subheader>クルーの設定</v-subheader> </v-row>
-        <v-row>
-          <v-col v-for="(character, i) in characters" :key="i" cols="3">
-            <character-setting-pane
-              :character="character"
-              @updateCharacter="updateCharacter"
-            />
-          </v-col>
-        </v-row>
-        <v-row> <v-divider /> </v-row>
-        <v-row> <v-subheader>マークの設定</v-subheader> </v-row>
-        <v-row>
-          <v-col v-for="(mark, i) in marks" :key="i" cols="3">
-            <v-card :color="mark.color" dark class="pa-4">
+        <v-expansion-panels v-model="panel">
+          <v-expansion-panel>
+            <v-expansion-panel-header>クルーの設定</v-expansion-panel-header>
+            <v-expansion-panel-content>
               <v-row>
-                <v-col cols="8">{{ mark.mark }}</v-col>
-                <v-col cols="4">
-                  <v-btn
-                    :disabled="!mark.editable"
-                    @click="showMarkEditDialog(mark)"
-                    >編集</v-btn
-                  >
+                <v-col v-for="(character, i) in characters" :key="i" cols="3">
+                  <character-setting-pane
+                    :character="character"
+                    @updateCharacter="updateCharacter"
+                  />
                 </v-col>
               </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>マークの設定</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-row>
+                <v-col v-for="(mark, i) in marks" :key="i" cols="3">
+                  <v-card :color="mark.color" dark class="pa-4">
+                    <v-row>
+                      <v-col cols="8">{{ mark.mark }}</v-col>
+                      <v-col cols="4">
+                        <v-btn
+                          :disabled="!mark.editable"
+                          @click="showMarkEditDialog(mark)"
+                          >編集</v-btn
+                        >
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-container>
       <v-dialog v-model="dialog" width="500">
         <mark-edit-dialog
@@ -63,8 +77,6 @@
     </v-card>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
 
 <script>
 import CharacterSettingPane from '~/components/molecures/CharacterSettingPane'
@@ -83,6 +95,10 @@ export default {
       type: String,
       default: '/map/skeld.png',
     },
+    size: {
+      type: String,
+      default: 'default',
+    },
     marks: Array,
   },
   data() {
@@ -96,6 +112,11 @@ export default {
         { text: 'mirahq', value: './map/mirahq.png' },
         { text: 'airship', value: './map/airship.png' },
       ],
+      panel: 0,
+      displaySizes: [
+        { text: '10人用', value: 'default' },
+        { text: '15人用', value: 'small' },
+      ],
     }
   },
   computed: {
@@ -105,6 +126,14 @@ export default {
       },
       set(val) {
         this.$emit('update:map', val)
+      },
+    },
+    displaySize: {
+      get() {
+        return this.size
+      },
+      set(val) {
+        this.$emit('update:size', val)
       },
     },
   },
@@ -139,3 +168,5 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped></style>

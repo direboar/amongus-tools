@@ -1,14 +1,8 @@
 <template>
   <span :style="span">
-    <img class="clue-image" :src="src" />
+    <img :style="clueImage" :src="src" />
   </span>
 </template>
-
-<style scoped>
-.clue-image {
-  width: 30px;
-}
-</style>
 
 <script>
 export default {
@@ -17,6 +11,10 @@ export default {
     src: {
       type: String,
       default: '/icon/clue/blue.png',
+    },
+    size: {
+      type: String,
+      default: 'default',
     },
   },
   data() {
@@ -35,14 +33,20 @@ export default {
         'padding-top': '0px',
         display: 'inline-block',
       }
-      const isDead = this.src.includes('dead')
-      if (isDead) {
-        span['padding-top'] = '7px'
-        span['padding-bottom'] = '7px'
-      }
       return span
+    },
+    clueImage() {
+      return {
+        width: this.size === 'default' ? '42px' : '35px',
+      }
     },
   },
   methods: {},
 }
 </script>
+
+<style scoped>
+.clue-image {
+  width: 19px;
+}
+</style>

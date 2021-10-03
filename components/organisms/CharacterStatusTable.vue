@@ -13,7 +13,7 @@
         <tr v-for="(character, i) in joinCharacters" :key="i">
           <td>
             <div>
-              <clue-icon :src="character.iconUrl" />
+              <clue-icon :size="size" :src="character.iconUrl" />
             </div>
           </td>
           <td>
@@ -76,6 +76,10 @@ export default {
   props: {
     characters: Array,
     marks: Array,
+    size: {
+      type: String,
+      default: 'default',
+    },
   },
   data() {
     return {

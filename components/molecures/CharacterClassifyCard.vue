@@ -9,6 +9,7 @@
               v-for="(character, i) in characterList"
               :key="i"
               :character="character"
+              :size="size"
             />
           </draggable>
         </v-col>
@@ -30,6 +31,10 @@ export default {
     title: String,
     color: String,
     characters: Array,
+    size: {
+      type: String,
+      default: 'default',
+    },
   },
   data() {
     return {

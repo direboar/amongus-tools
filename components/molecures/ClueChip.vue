@@ -1,7 +1,7 @@
 <template>
-  <v-chip draggable color="green">
+  <v-chip draggable color="green" :small="isSmall">
     <v-avatar size="30x" left>
-      <clue-icon :src="character.iconUrl" />
+      <clue-icon :size="size" :src="character.iconUrl" />
     </v-avatar>
     {{ character.name }}
   </v-chip>
@@ -18,11 +18,19 @@ export default {
   },
   props: {
     character: Object,
+    size: {
+      type: String,
+      default: 'default',
+    },
   },
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    isSmall() {
+      return this.size !== 'default'
+    },
+  },
   watch: {},
   methods: {},
 }

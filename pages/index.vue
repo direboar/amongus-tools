@@ -22,6 +22,7 @@
               <character-status-table
                 :characters="characters"
                 :marks="marks"
+                :size="size"
                 @updateCharacter="updateCharacter"
               />
             </v-col>
@@ -44,6 +45,7 @@
                     :maybe-impostor="maybeImpostor"
                     :killed="killed"
                     :hunged="hunged"
+                    :size="size"
                     @updateCharacters="updateCharacterStatus"
                   />
                 </v-col>
@@ -57,6 +59,7 @@
           :characters="characters"
           :marks.sync="marks"
           :map.sync="map"
+          :size.sync="size"
           @resetSetting="resetSetting"
           @saveSetting="saveSetting"
           @loadSetting="loadSetting"
@@ -113,6 +116,7 @@ export default {
         { mark: '〇', color: '#03AA28D9', editable: true },
         { mark: '✕', color: '#AC1F08FF', editable: true },
       ],
+      size: 'default',
     }
   },
   mounted() {
@@ -135,8 +139,14 @@ export default {
         new Character('purple', 'purple'),
         new Character('red', 'red'),
         new Character('skyblue', 'skyblue'),
-        new Character('white', 'white'),
-        new Character('yellow', 'yellow'),
+        new Character('white', 'white', false),
+        new Character('yellow', 'yellow', false),
+        new Character('tan', 'tan', false),
+        new Character('gray', 'gray', false),
+        new Character('banana', 'banana', false),
+        new Character('rose', 'rose', false),
+        new Character('maroon', 'maroon', false),
+        new Character('coral', 'coral', false),
       ]
     },
     startGame() {
@@ -228,7 +238,8 @@ export default {
         )
         if (loaded) {
           const objects = JSON.parse(loaded)
-          this.characters = Character.assigns(objects.characters)
+          this.characters = this.loadCharacters(objects)
+          // this.characters = Character.assigns(objects.characters)
           this.marks = objects.marks
           this.resetCharacterStatusArea()
           this.initPosition()
@@ -241,17 +252,40 @@ export default {
         console.error(e)
       }
     },
+
+    loadCharacters(objects) {
+      const characters = Character.assigns(objects.characters)
+      const newColors = this.createClues().forEach((newColor) => {
+        const found = characters.find((e) => {
+          return e.color === newColor.color
+        })
+        if (!found) {
+          newColor.join = false
+          characters.push(newColor)
+        }
+      })
+      console.log(newColors)
+      return characters
+    },
+
     initPosition() {
       let x = 0
+      let count = 0
       this.characters.forEach((character) => {
         if (character.join) {
+          const top = count > 10 ? 80 : 20
           character.resetPosition({
-            top: 20,
-            absTop: 20,
+            top,
+            absTop: top,
             left: x,
             absLeft: x,
           })
-          x = x + 45
+          count++
+          if (count === 11) {
+            x = 0
+          } else {
+            x = x + 45
+          }
         }
       })
       this.mapIndex = 0
